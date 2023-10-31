@@ -12,6 +12,7 @@ object ObjectBoxStore {
     fun init(context: Context) {
         store = MyObjectBox.builder()
             .androidContext(context.applicationContext)
+            .name("moneyControl")
             .build()
     }
 
