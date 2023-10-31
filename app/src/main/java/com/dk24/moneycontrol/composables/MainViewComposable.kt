@@ -122,7 +122,7 @@ fun UserDetailsNavigationDrawerItem() {
             modifier = Modifier.padding(16.dp)
         ) {
             Image(
-                painter = painterResource(R.drawable.ic_launcher_foreground),
+                painter = painterResource(R.mipmap.ic_default_user),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
