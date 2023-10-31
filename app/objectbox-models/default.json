@@ -1,0 +1,338 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4116183025014910021",
+      "lastPropertyId": "3:7491821542001416866",
+      "name": "Account",
+      "properties": [
+        {
+          "id": "1:5141825687290503210",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:532700402990047588",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:7491821542001416866",
+          "name": "type",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:8457380310719181647",
+      "lastPropertyId": "2:594443505404172550",
+      "name": "Category",
+      "properties": [
+        {
+          "id": "1:8643294989890367145",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:594443505404172550",
+          "name": "name",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:1013249080066253278",
+      "lastPropertyId": "5:1811666623339422912",
+      "name": "CreditTransfers",
+      "properties": [
+        {
+          "id": "1:4326524610001466548",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1514740814339347563",
+          "name": "amount",
+          "type": 6
+        },
+        {
+          "id": "3:3780655854401222916",
+          "name": "from",
+          "type": 9
+        },
+        {
+          "id": "4:4453438442102222828",
+          "name": "type",
+          "type": 9
+        },
+        {
+          "id": "5:1811666623339422912",
+          "name": "toId",
+          "indexId": "1:3498503387470438489",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Account"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:7440428388439098046",
+      "lastPropertyId": "4:9112293655197866650",
+      "name": "DayDreams",
+      "properties": [
+        {
+          "id": "1:7046251874070894203",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5365280703733013862",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "3:7308041091676734481",
+          "name": "timeStamp",
+          "type": 6
+        },
+        {
+          "id": "4:9112293655197866650",
+          "name": "status",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:8792864891958999387",
+      "lastPropertyId": "5:3134099991859599197",
+      "name": "DebitTransfers",
+      "properties": [
+        {
+          "id": "1:4254638777923351441",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2777177439441765675",
+          "name": "amount",
+          "type": 6
+        },
+        {
+          "id": "3:8305963604668710095",
+          "name": "timeStamp",
+          "type": 9
+        },
+        {
+          "id": "4:802326499306715241",
+          "name": "productId",
+          "indexId": "2:2646034428482307667",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Product"
+        },
+        {
+          "id": "5:3134099991859599197",
+          "name": "fromId",
+          "indexId": "3:8324043257367689565",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Account"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "6:6733110215491449908",
+      "lastPropertyId": "6:8875463680448871392",
+      "name": "LentMoney",
+      "properties": [
+        {
+          "id": "1:8442442725836089797",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5834339476246722608",
+          "name": "amount",
+          "type": 6
+        },
+        {
+          "id": "3:6130849476330340038",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "4:5953257705708732645",
+          "name": "timeStamp",
+          "type": 9
+        },
+        {
+          "id": "5:617810294313922947",
+          "name": "mobileNumber",
+          "type": 6
+        },
+        {
+          "id": "6:8875463680448871392",
+          "name": "isRepaid",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "7:5437954223401657994",
+      "lastPropertyId": "8:4288535531081642055",
+      "name": "Loans",
+      "properties": [
+        {
+          "id": "1:1193088001601868161",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5752547288886681028",
+          "name": "amount",
+          "type": 6
+        },
+        {
+          "id": "3:8093663325953915952",
+          "name": "from",
+          "type": 9
+        },
+        {
+          "id": "4:8210534405679306397",
+          "name": "sourceType",
+          "type": 9
+        },
+        {
+          "id": "5:8264878342789009989",
+          "name": "numberOfInstalments",
+          "type": 5
+        },
+        {
+          "id": "6:3280063596907282396",
+          "name": "numberOfInstalmentsPaid",
+          "type": 5
+        },
+        {
+          "id": "7:3236334382736544373",
+          "name": "isAutoRepayEnabled",
+          "type": 1
+        },
+        {
+          "id": "8:4288535531081642055",
+          "name": "autoRepayStartDate",
+          "type": 9
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "8:1816800361256143629",
+      "lastPropertyId": "4:3995214370991669218",
+      "name": "MonthlyGoals",
+      "properties": [
+        {
+          "id": "1:926218974519932123",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6194042356353498965",
+          "name": "description",
+          "type": 9
+        },
+        {
+          "id": "3:3873785297998353296",
+          "name": "date",
+          "type": 9
+        },
+        {
+          "id": "4:3995214370991669218",
+          "name": "isAchieved",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "9:5972774028415341509",
+      "lastPropertyId": "3:5577102857112397783",
+      "name": "Product",
+      "properties": [
+        {
+          "id": "1:5925588498382753092",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8215118230315616522",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:5577102857112397783",
+          "name": "categoryId",
+          "indexId": "4:620748337342248869",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Category"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "10:758941963686294461",
+      "lastPropertyId": "3:1417187847443079469",
+      "name": "Savings",
+      "properties": [
+        {
+          "id": "1:23795964240371042",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5224099465358281479",
+          "name": "totalAmount",
+          "type": 6
+        },
+        {
+          "id": "3:1417187847443079469",
+          "name": "accountId",
+          "indexId": "5:8074324997674363860",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Account"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "10:758941963686294461",
+  "lastIndexId": "5:8074324997674363860",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

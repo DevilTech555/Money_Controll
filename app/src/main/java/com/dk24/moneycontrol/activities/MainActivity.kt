@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol
+package com.dk24.moneycontrol.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
