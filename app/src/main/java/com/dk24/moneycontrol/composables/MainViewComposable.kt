@@ -1,8 +1,8 @@
 package com.dk24.moneycontrol.composables
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,8 +24,10 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,28 +43,29 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dk24.moneycontrol.R
-import com.dk24.moneycontrol.models.NavigationItem
+import com.dk24.moneycontrol.viewmodels.MainActivityViewModel
 import kotlinx.coroutines.launch
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainViewCompose(
-    title: String,
-    navigationItems: List<NavigationItem>
-) {
+fun MainViewCompose() {
 
+    val viewModel = viewModel<MainActivityViewModel>()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     var selectedItemIndex by rememberSaveable {
         mutableIntStateOf(0)
     }
+
     ModalNavigationDrawer(
         drawerContent = {
             ModalDrawerSheet {
                 UserDetailsNavigationDrawerItem()
                 Spacer(modifier = Modifier.height(16.dp))
-                navigationItems.forEachIndexed { index, item ->
+                viewModel.getNavigationItems().forEachIndexed { index, item ->
                     NavigationDrawerItem(
                         modifier = Modifier
                             .padding(NavigationDrawerItemDefaults.ItemPadding),
@@ -87,35 +90,38 @@ fun MainViewCompose(
         },
         drawerState = drawerState
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(
-                    onClick = {
-                        scope.launch {
-                            drawerState.open()
-                        }
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text(text = viewModel.getTitle())
                     },
-                    modifier = Modifier
-                        .padding(8.dp)
-                ) {
-                    Icon(imageVector = Icons.Filled.Menu, contentDescription = "Open Nav Drawer")
-                }
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleLarge
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            scope.launch {
+                                drawerState.open()
+                            }
+                        }) {
+                            Icon(
+                                imageVector = Icons.Filled.Menu,
+                                contentDescription = "Localized description"
+                            )
+                        }
+                    }
                 )
             }
+        ) {
+
+
         }
     }
 }
 
 @Composable
 fun UserDetailsNavigationDrawerItem() {
+
+    val viewModel = viewModel<MainActivityViewModel>()
+
     Column {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -135,8 +141,8 @@ fun UserDetailsNavigationDrawerItem() {
                     .padding(start = 16.dp)
                     .defaultMinSize(minHeight = 46.dp)
             ) {
-                Text(text = "Naveen PM", style = MaterialTheme.typography.titleLarge)
-                Text(text = "pmnaveeen6@gmail.com", style = MaterialTheme.typography.titleSmall)
+                Text(text = viewModel.getUserName(), style = MaterialTheme.typography.titleLarge)
+                Text(text = viewModel.getSecondaryName(), style = MaterialTheme.typography.titleSmall)
             }
         }
         Divider(
