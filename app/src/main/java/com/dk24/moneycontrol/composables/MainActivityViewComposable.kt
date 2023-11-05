@@ -51,7 +51,7 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainViewCompose() {
+fun MainActivityViewCompose() {
 
     val viewModel = viewModel<MainActivityViewModel>()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)

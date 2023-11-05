@@ -29,6 +29,7 @@ class MainActivityViewModel : ViewModel() {
             unselectedIcon = Icons.Outlined.Info
         )
     )
+
     private val title = "Hi, Naveen..!"
     private val userName = "Naveen PM"
     private val secondaryName = "pmnaveeen6@gmail.com"
