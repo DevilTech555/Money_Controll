@@ -10,23 +10,26 @@ import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.lifecycle.ViewModel
 import com.dk24.moneycontrol.models.NavigationItem
 
-class MainActivityViewModel : ViewModel() {
+class NavigationViewModel : ViewModel() {
 
     private val navigationItems = listOf(
         NavigationItem(
             title = "Dashboard",
             selectedIcon = Icons.Filled.Home,
             unselectedIcon = Icons.Outlined.Home,
+            route = "DASHBOARD"
         ),
         NavigationItem(
             title = "Goals",
             selectedIcon = Icons.Filled.ThumbUp,
             unselectedIcon = Icons.Outlined.ThumbUp,
+            route = "GOALS"
         ),
         NavigationItem(
             title = "About",
             selectedIcon = Icons.Filled.Info,
-            unselectedIcon = Icons.Outlined.Info
+            unselectedIcon = Icons.Outlined.Info,
+            route = "ABOUT"
         )
     )
 

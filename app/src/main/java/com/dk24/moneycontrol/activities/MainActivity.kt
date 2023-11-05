@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.dk24.moneycontrol.composables.MainActivityViewCompose
+import com.dk24.moneycontrol.composables.NavigationDrawerViewCompose
 import com.dk24.moneycontrol.ui.theme.MoneyControlTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.surface
                 ) {
-                    MainActivityViewCompose()
+                    NavigationDrawerViewCompose()
                 }
             }
         }
