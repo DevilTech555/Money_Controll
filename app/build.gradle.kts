@@ -101,4 +101,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Required -- View Swipe
+    implementation("me.saket.swipe:swipe:1.2.0")
 }

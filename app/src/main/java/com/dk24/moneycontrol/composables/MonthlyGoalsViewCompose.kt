@@ -21,7 +21,6 @@ import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.viewmodels.MonthlyGoalsViewModel
 
-
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -61,12 +60,20 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
                                 Spacer(modifier = Modifier.height(6.dp))
                             }
                             items(contactsForInitial) { goal: MonthlyGoals ->
+
                                 GoalsListItem(monthlyGoals = goal, onCheckedChange = {
                                     goal.apply {
                                         this.isAchieved = it
                                         viewModel.updateGoal(this)
                                     }
+                                }, onDelete = {
+                                    viewModel.selectedGoal = it
+                                    viewModel.isDeleteGoalDialogVisible.value = true
+                                }, onEdit = {
+                                    viewModel.selectedGoal = it
+                                    viewModel.isEditGoalDialogVisible.value = true
                                 })
+
                             }
                             item {
                                 Spacer(modifier = Modifier.height(6.dp))
@@ -85,6 +92,36 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
                 }, onAdd = { value ->
                     viewModel.addGoal(value)
                 })
+            }
+
+            if (viewModel.isEditGoalDialogVisible.value) {
+                viewModel.selectedGoal?.let {
+                    UpdateGoalDialogCompose(
+                        monthlyGoal = it,
+                        onDismissRequest = {
+                            viewModel.isEditGoalDialogVisible.value = false
+                        }, onUpdate = { value ->
+                            viewModel.updateGoal(value)
+                        })
+                } ?: run {
+                    viewModel.isEditGoalDialogVisible.value = false
+                }
+            }
+
+            if (viewModel.isDeleteGoalDialogVisible.value) {
+                viewModel.selectedGoal?.let {
+                    DeleteGoalDialogCompose(
+                        monthlyGoal = it,
+                        onDismissRequest = {
+                            viewModel.isDeleteGoalDialogVisible.value = false
+                        },
+                        onDelete = { value ->
+                            viewModel.removeGoal(value)
+                        }
+                    )
+                } ?: run {
+                    viewModel.isDeleteGoalDialogVisible.value = false
+                }
             }
         }
     )

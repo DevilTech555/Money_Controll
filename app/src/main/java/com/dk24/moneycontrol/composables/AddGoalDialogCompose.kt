@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -28,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.dk24.moneycontrol.db.entities.MonthlyGoals
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha
 
@@ -72,14 +74,6 @@ fun AddGoalDialogCompose(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.Bottom
                 ) {
-                    TextButton(
-                        onClick = { onDismissRequest() },
-                        modifier = Modifier
-                            .padding(horizontal = 8.dp)
-                            .padding(bottom = 12.dp),
-                    ) {
-                        Text("Dismiss")
-                    }
                     Spacer(modifier = Modifier.weight(1f))
                     TextButton(
                         onClick = { onAdd(goalTextValue) },
@@ -92,6 +86,99 @@ fun AddGoalDialogCompose(
                 }
             }
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun UpdateGoalDialogCompose(
+    monthlyGoal: MonthlyGoals,
+    onDismissRequest: () -> Unit,
+    onUpdate: (MonthlyGoals) -> Unit
+) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.surface.changeAlpha(Constants.dialogBackgroundAlpha)
+    ) {
+        Dialog(onDismissRequest = {
+            onDismissRequest()
+        }) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Min)
+                    .padding(16.dp)
+                    .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp))
+                    .border(
+                        BorderStroke(1.dp, MaterialTheme.colorScheme.inversePrimary),
+                        RoundedCornerShape(16.dp)
+                    )
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 16.dp)
+            ) {
+
+                var goalTextValue by rememberSaveable { mutableStateOf(monthlyGoal.description.orEmpty()) }
+
+                Text(text = "Add Goal", style = MaterialTheme.typography.titleMedium)
+
+                OutlinedTextField(value = goalTextValue, onValueChange = {
+                    goalTextValue = it
+                    monthlyGoal.description = it
+                }, modifier = Modifier.padding(vertical = 12.dp))
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.Bottom
+                ) {
+                    Spacer(modifier = Modifier.weight(1f))
+                    TextButton(
+                        onClick = { onUpdate(monthlyGoal) },
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp)
+                            .padding(bottom = 12.dp),
+                    ) {
+                        Text("Update")
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun DeleteGoalDialogCompose(
+    monthlyGoal: MonthlyGoals,
+    onDismissRequest: () -> Unit,
+    onDelete: (MonthlyGoals) -> Unit
+) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.surface.changeAlpha(Constants.dialogBackgroundAlpha)
+    ) {
+        AlertDialog(
+            title = {
+                Text(text = "Warning")
+            },
+            text = {
+                Text(text = "Selected goal will be deleted.")
+            },
+            onDismissRequest = {
+                onDismissRequest()
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onDelete(monthlyGoal)
+                    }
+                ) {
+                    Text("Confirm")
+                }
+            }
+        )
     }
 }
 

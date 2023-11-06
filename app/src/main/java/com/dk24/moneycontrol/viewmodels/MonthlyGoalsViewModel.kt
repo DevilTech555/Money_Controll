@@ -11,8 +11,12 @@ class MonthlyGoalsViewModel : ViewModel() {
 
     private val title = "Goals"
 
+    val isDeleteGoalDialogVisible = mutableStateOf(false)
+    val isEditGoalDialogVisible = mutableStateOf(false)
     val isAddGoalDialogVisible = mutableStateOf(false)
     val needRefresh = mutableStateOf(true)
+
+    var selectedGoal: MonthlyGoals? = null
 
     fun getTitle() = title
 
@@ -33,6 +37,17 @@ class MonthlyGoalsViewModel : ViewModel() {
 
     fun updateGoal(monthlyGoals: MonthlyGoals) {
         monthlyGoalsBox.put(monthlyGoals)
+        isEditGoalDialogVisible.value = false
+        refresh()
+    }
+
+    fun removeGoal(monthlyGoals: MonthlyGoals) {
+        monthlyGoalsBox.remove(monthlyGoals)
+        isDeleteGoalDialogVisible.value = false
+        refresh()
+    }
+
+    private fun refresh() {
         needRefresh.value = false
         needRefresh.value = true
     }

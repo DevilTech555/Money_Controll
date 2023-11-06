@@ -21,7 +21,7 @@ fun MainViewNavigationHost(
 
     NavHost(
         navController = navController,
-        startDestination = MainViewNavigationRoutes.MONTHLY_GOALS_SCREEN
+        startDestination = MainViewNavigationRoutes.MAIN_SCREEN
     ) {
         composable(MainViewNavigationRoutes.MAIN_SCREEN) {
             DashboardViewCompose(drawerState = drawerState)
