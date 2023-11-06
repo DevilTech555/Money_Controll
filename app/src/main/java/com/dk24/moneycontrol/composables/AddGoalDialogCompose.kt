@@ -21,39 +21,38 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.dk24.moneycontrol.utilites.Constants
+import com.dk24.moneycontrol.utilites.changeAlpha
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddGoalDialogCompose(
     onDismissRequest: () -> Unit, onAdd: (String) -> Unit
 ) {
-    Dialog(onDismissRequest = {
-        onDismissRequest()
-    }) {
-        Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(IntrinsicSize.Min)
-                .padding(16.dp)
-                .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp))
-                .border(
-                    BorderStroke(1.dp, MaterialTheme.colorScheme.inversePrimary),
-                    RoundedCornerShape(16.dp)
-                ),
-            color = Color.Transparent
-        ) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.surface.changeAlpha(Constants.dialogBackgroundAlpha)
+    ) {
+        Dialog(onDismissRequest = {
+            onDismissRequest()
+        }) {
             Column(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Min)
+                    .padding(16.dp)
+                    .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp))
+                    .border(
+                        BorderStroke(1.dp, MaterialTheme.colorScheme.inversePrimary),
+                        RoundedCornerShape(16.dp)
+                    )
                     .padding(horizontal = 16.dp)
                     .padding(top = 16.dp)
             ) {
@@ -75,14 +74,18 @@ fun AddGoalDialogCompose(
                 ) {
                     TextButton(
                         onClick = { onDismissRequest() },
-                        modifier = Modifier.padding(horizontal = 8.dp).padding(bottom = 12.dp),
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp)
+                            .padding(bottom = 12.dp),
                     ) {
                         Text("Dismiss")
                     }
                     Spacer(modifier = Modifier.weight(1f))
                     TextButton(
                         onClick = { onAdd(goalTextValue) },
-                        modifier = Modifier.padding(horizontal = 8.dp).padding(bottom = 12.dp),
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp)
+                            .padding(bottom = 12.dp),
                     ) {
                         Text("ADD")
                     }
