@@ -3,6 +3,8 @@ package com.dk24.moneycontrol.composables
 import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,9 +14,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dk24.moneycontrol.db.entities.MonthlyGoals
 import com.dk24.moneycontrol.enums.TopBarNavigationType
+import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.viewmodels.MonthlyGoalsViewModel
 
 
@@ -40,24 +44,37 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
         },
         content = { innerPadding ->
 
-            val grouped = viewModel.getGoals().groupBy { it.isAchieved }
+            if (viewModel.needRefresh.value) {
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .background(MaterialTheme.colorScheme.background)
+                ) {
 
-            LazyColumn(
-                modifier = Modifier
-                    .padding(innerPadding)
-                    .background(MaterialTheme.colorScheme.background)
-            ) {
+                    viewModel.getGoals().groupBy { it.isAchieved }.toSortedMap(compareBy { it })
+                        .forEach { (isAchieved, contactsForInitial) ->
 
-                grouped.forEach { (isAchieved, contactsForInitial) ->
+                            stickyHeader {
+                                MonthlyGoalsStickyHeader(if (isAchieved == true) "Achieved" else "Non-Achieved")
+                            }
+                            item {
+                                Spacer(modifier = Modifier.height(6.dp))
+                            }
+                            items(contactsForInitial) { goal: MonthlyGoals ->
+                                GoalsListItem(monthlyGoals = goal, onCheckedChange = {
+                                    goal.apply {
+                                        this.isAchieved = it
+                                        viewModel.updateGoal(this)
+                                    }
+                                })
+                            }
+                            item {
+                                Spacer(modifier = Modifier.height(6.dp))
+                            }
+                        }
 
-                    stickyHeader {
-                        MonthlyGoalsStickyHeader(if (isAchieved == true) "Achieved" else "Non-Achieved")
-                    }
-
-                    items(contactsForInitial) { goal: MonthlyGoals ->
-                        GoalsListItem(monthlyGoals = goal, onCheckedChange = {
-
-                        })
+                    item {
+                        Spacer(modifier = Modifier.height(Constants.ScrollOffset))
                     }
                 }
             }

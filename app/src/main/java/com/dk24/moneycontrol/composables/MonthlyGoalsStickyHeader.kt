@@ -16,8 +16,7 @@ fun MonthlyGoalsStickyHeader(label: String) {
     Row(
         modifier = Modifier
             .fillMaxSize()
-            .padding(bottom = 6.dp)
-            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.Center
     ) {

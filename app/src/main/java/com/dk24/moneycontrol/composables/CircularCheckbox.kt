@@ -27,10 +27,10 @@ fun CircularCheckbox(
         modifier = modifier
             .size(24.dp)
             .background(
-                color = if (checked) MaterialTheme.colorScheme.primary else Color.Transparent,
+                color = if (checked) MaterialTheme.colorScheme.inversePrimary else Color.Transparent,
                 shape = CircleShape
             )
-            .border(BorderStroke(1.dp, MaterialTheme.colorScheme.primary), CircleShape)
+            .border(BorderStroke(1.dp, MaterialTheme.colorScheme.inversePrimary), CircleShape)
             .clickable { onCheckedChange(!checked) },
         contentAlignment = Alignment.Center
     ) {
@@ -38,7 +38,7 @@ fun CircularCheckbox(
             Icon(
                 imageVector = Icons.Default.Check,
                 contentDescription = null,
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.size(16.dp)
             )
         }

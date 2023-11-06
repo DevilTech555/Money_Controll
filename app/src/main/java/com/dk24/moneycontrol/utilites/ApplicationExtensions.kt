@@ -7,11 +7,19 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.ui.graphics.Color
 import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
 
 fun Activity.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, duration).show()
 }
+
+fun Color.changeAlpha(alphaValue: Float): Color = Color(
+    red = this.red,
+    green = this.green,
+    blue = this.blue,
+    alpha = alphaValue
+)
 
 @Suppress("DEPRECATION")
 fun getVersionNameAndVersionCode(context: Context, onlyVersionName: Boolean = false): String {

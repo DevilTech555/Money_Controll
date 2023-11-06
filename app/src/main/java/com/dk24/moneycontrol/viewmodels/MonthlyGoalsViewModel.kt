@@ -10,7 +10,9 @@ class MonthlyGoalsViewModel : ViewModel() {
     private val monthlyGoalsBox = ObjectBoxStore.get().boxFor(MonthlyGoals::class.java)
 
     private val title = "Goals"
+
     val isAddGoalDialogVisible = mutableStateOf(false)
+    val needRefresh = mutableStateOf(true)
 
     fun getTitle() = title
 
@@ -27,5 +29,11 @@ class MonthlyGoalsViewModel : ViewModel() {
             }
         }
         isAddGoalDialogVisible.value = false
+    }
+
+    fun updateGoal(monthlyGoals: MonthlyGoals) {
+        monthlyGoalsBox.put(monthlyGoals)
+        needRefresh.value = false
+        needRefresh.value = true
     }
 }

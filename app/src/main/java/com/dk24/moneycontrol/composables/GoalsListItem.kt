@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dk24.moneycontrol.db.entities.MonthlyGoals
+import com.dk24.moneycontrol.utilites.changeAlpha
 
 @Composable
 fun GoalsListItem(monthlyGoals: MonthlyGoals, onCheckedChange: (Boolean) -> Unit) {
@@ -24,7 +25,7 @@ fun GoalsListItem(monthlyGoals: MonthlyGoals, onCheckedChange: (Boolean) -> Unit
             .padding(horizontal = 16.dp)
             .padding(vertical = 6.dp)
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(20))
+            .background(MaterialTheme.colorScheme.secondaryContainer.changeAlpha(.5f), RoundedCornerShape(20))
             .padding(16.dp)
         ,
         verticalAlignment = Alignment.CenterVertically
