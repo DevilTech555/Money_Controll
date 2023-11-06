@@ -4,4 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class AboutViewModel : ViewModel() {
 
+    private val title = "About"
+
+    fun getTitle() = title
 }

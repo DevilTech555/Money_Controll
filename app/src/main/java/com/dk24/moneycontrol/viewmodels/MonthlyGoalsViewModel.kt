@@ -4,4 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class MonthlyGoalsViewModel: ViewModel() {
 
+    private val title = "This month goals.."
+
+    fun getTitle() = title
 }

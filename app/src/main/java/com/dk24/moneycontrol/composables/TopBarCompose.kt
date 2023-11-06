@@ -1,5 +1,6 @@
 package com.dk24.moneycontrol.composables
 
+import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -10,7 +11,7 @@ import com.dk24.moneycontrol.enums.TopBarNavigationType
 @Composable
 fun TopBarCompose(
     title: String?,
-    onClick: (TopBarNavigationType) -> Unit,
+    drawerState: DrawerState,
     navigationType: TopBarNavigationType
 ) {
     TopAppBar(
@@ -18,7 +19,7 @@ fun TopBarCompose(
             Text(text = title.orEmpty())
         },
         navigationIcon = {
-            TopBarNavigationType.valueOf(navigationType.name).GetIconButton(onClick = onClick)
+            TopBarNavigationType.valueOf(navigationType.name).GetIconButton(drawerState)
         }
     )
 }

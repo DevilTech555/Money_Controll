@@ -4,4 +4,7 @@ import androidx.lifecycle.ViewModel
 
 class DashboardViewModel : ViewModel() {
 
+    private val title = "Hi, Naveen..!"
+
+    fun getTitle() = title
 }
