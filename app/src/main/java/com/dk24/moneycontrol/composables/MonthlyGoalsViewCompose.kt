@@ -31,6 +31,11 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
                 navigationType = TopBarNavigationType.MENU
             )
         },
+        floatingActionButton = {
+            CircleFabButton(contentDescription = "Add a goal") {
+
+            }
+        },
         content = { _ ->
             Box(
                 modifier = Modifier

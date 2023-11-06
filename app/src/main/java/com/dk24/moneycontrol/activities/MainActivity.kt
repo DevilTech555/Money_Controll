@@ -39,7 +39,8 @@ class MainActivity : ComponentActivity() {
                     }) {
                         MainViewNavigationHost(
                             navController = navController,
-                            drawerState = drawerState
+                            drawerState = drawerState,
+                            context = this
                         )
                     }
                 }

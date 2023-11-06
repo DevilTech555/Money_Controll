@@ -1,5 +1,6 @@
 package com.dk24.moneycontrol.navigation
 
+import android.content.Context
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
@@ -12,9 +13,16 @@ import com.dk24.moneycontrol.composables.MonthlyGoalsViewCompose
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainViewNavigationHost(navController: NavHostController, drawerState: DrawerState) {
+fun MainViewNavigationHost(
+    navController: NavHostController,
+    drawerState: DrawerState,
+    context: Context
+) {
 
-    NavHost(navController = navController, startDestination = MainViewNavigationRoutes.MAIN_SCREEN) {
+    NavHost(
+        navController = navController,
+        startDestination = MainViewNavigationRoutes.MAIN_SCREEN
+    ) {
         composable(MainViewNavigationRoutes.MAIN_SCREEN) {
             DashboardViewCompose(drawerState = drawerState)
         }
@@ -22,7 +30,7 @@ fun MainViewNavigationHost(navController: NavHostController, drawerState: Drawer
             MonthlyGoalsViewCompose(drawerState = drawerState)
         }
         composable(MainViewNavigationRoutes.ABOUT_SCREEN) {
-            AboutViewCompose(drawerState = drawerState)
+            AboutViewCompose(drawerState = drawerState, context)
         }
     }
 }
