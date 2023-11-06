@@ -8,6 +8,6 @@ data class MonthlyGoals(
     @Id
     var id: Long = 0,
     var description: String? = null,
-    var date: String? = null,
+    var date: Long? = null,
     var isAchieved: Boolean? = null
 )

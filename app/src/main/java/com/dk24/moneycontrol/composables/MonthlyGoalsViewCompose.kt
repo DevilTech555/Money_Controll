@@ -1,23 +1,25 @@
 package com.dk24.moneycontrol.composables
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.dk24.moneycontrol.db.entities.MonthlyGoals
 import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.viewmodels.MonthlyGoalsViewModel
 
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
 
@@ -33,16 +35,39 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
         },
         floatingActionButton = {
             CircleFabButton(contentDescription = "Add a goal") {
-
+                viewModel.isAddGoalDialogVisible.value = true
             }
         },
-        content = { _ ->
-            Box(
+        content = { innerPadding ->
+
+            val grouped = viewModel.getGoals().groupBy { it.isAchieved }
+
+            LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .padding(innerPadding)
                     .background(MaterialTheme.colorScheme.background)
             ) {
 
+                grouped.forEach { (isAchieved, contactsForInitial) ->
+
+                    stickyHeader {
+                        MonthlyGoalsStickyHeader(if (isAchieved == true) "Achieved" else "Non-Achieved")
+                    }
+
+                    items(contactsForInitial) { goal: MonthlyGoals ->
+                        GoalsListItem(monthlyGoals = goal, onCheckedChange = {
+
+                        })
+                    }
+                }
+            }
+
+            if (viewModel.isAddGoalDialogVisible.value) {
+                AddGoalDialogCompose(onDismissRequest = {
+                    viewModel.isAddGoalDialogVisible.value = false
+                }, onAdd = { value ->
+                    viewModel.addGoal(value)
+                })
             }
         }
     )

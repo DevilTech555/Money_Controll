@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.ui.Modifier
@@ -27,16 +26,18 @@ class MainActivity : ComponentActivity() {
                 val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.surface
+                    modifier = Modifier.fillMaxSize()
                 ) {
-                    NavigationDrawerViewCompose(context = this, drawerState = drawerState, { navItem ->
-                        navItem.route?.let {
-                            navController.navigate(it) {
-                                popUpTo(MainViewNavigationRoutes.MAIN_SCREEN)
+                    NavigationDrawerViewCompose(
+                        context = this,
+                        drawerState = drawerState,
+                        { navItem ->
+                            navItem.route?.let {
+                                navController.navigate(it) {
+                                    popUpTo(MainViewNavigationRoutes.MAIN_SCREEN)
+                                }
                             }
-                        }
-                    }) {
+                        }) {
                         MainViewNavigationHost(
                             navController = navController,
                             drawerState = drawerState,
