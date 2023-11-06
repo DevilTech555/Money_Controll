@@ -19,7 +19,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.utilites.getVersionNameAndVersionCode
 import com.dk24.moneycontrol.viewmodels.AboutViewModel
-import io.objectbox.android.BuildConfig
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,7 +44,6 @@ fun AboutViewCompose(drawerState: DrawerState, context: Context) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(text = "Developed By:  Naveen P M")
-                Text(text = "Build Variant: ${BuildConfig.BUILD_TYPE.toUpperCase()}")
                 Text(text = "Application Version - Code:  ${getVersionNameAndVersionCode(context)}")
             }
         }

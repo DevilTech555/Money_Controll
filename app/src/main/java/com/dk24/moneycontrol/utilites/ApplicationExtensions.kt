@@ -14,7 +14,7 @@ fun Activity.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 @Suppress("DEPRECATION")
-fun getVersionNameAndVersionCode(context: Context): String {
+fun getVersionNameAndVersionCode(context: Context, onlyVersionName: Boolean = false): String {
     var pInfo: PackageInfo? = null
     try {
         pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
@@ -28,5 +28,5 @@ fun getVersionNameAndVersionCode(context: Context): String {
         )
     } else pInfo?.versionCode
 
-    return "$version - $versionCode"
+    return "$version" + if (onlyVersionName) "" else " - $versionCode"
 }

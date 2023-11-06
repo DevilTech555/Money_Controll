@@ -42,10 +42,7 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
             ) {
-                Text(
-                    text = "MonthlyGoalsViewCompose",
-                    modifier = Modifier.align(Alignment.Center)
-                )
+
             }
         }
     )

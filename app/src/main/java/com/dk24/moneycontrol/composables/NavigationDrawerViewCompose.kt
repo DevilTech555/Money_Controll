@@ -1,6 +1,7 @@
 package com.dk24.moneycontrol.composables
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dk24.moneycontrol.R
 import com.dk24.moneycontrol.models.NavigationItem
+import com.dk24.moneycontrol.utilites.getVersionNameAndVersionCode
 import com.dk24.moneycontrol.viewmodels.NavigationViewModel
 import kotlinx.coroutines.launch
 
@@ -45,6 +47,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationDrawerViewCompose(
+    context: Context,
     drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
     onClickOption: (NavigationItem) -> Unit,
     content: @Composable () -> Unit
@@ -80,6 +83,13 @@ fun NavigationDrawerViewCompose(
                         }
                     )
                 }
+                Spacer(modifier = Modifier.weight(1.0f))
+                Text(
+                    text = "version ${getVersionNameAndVersionCode(context, true)}",
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .align(Alignment.End),
+                )
             }
         },
         drawerState = drawerState

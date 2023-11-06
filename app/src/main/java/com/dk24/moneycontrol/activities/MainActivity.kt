@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.surface
                 ) {
-                    NavigationDrawerViewCompose(drawerState = drawerState, { navItem ->
+                    NavigationDrawerViewCompose(context = this, drawerState = drawerState, { navItem ->
                         navItem.route?.let {
                             navController.navigate(it) {
                                 popUpTo(MainViewNavigationRoutes.MAIN_SCREEN)

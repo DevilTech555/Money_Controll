@@ -35,10 +35,7 @@ fun DashboardViewCompose(drawerState: DrawerState) {
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
             ) {
-                Text(
-                    text = "DashboardViewCompose",
-                    modifier = Modifier.align(Alignment.Center)
-                )
+
             }
         }
     )

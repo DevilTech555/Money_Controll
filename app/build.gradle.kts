@@ -23,15 +23,35 @@ android {
     }
 
     buildTypes {
+
+        applicationVariants.all {
+            val variant = this
+            variant.outputs
+                .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+                .forEach { output ->
+                    val outputFileName = "MoneyControl-${variant.baseName}-${variant.versionName}-${variant.versionCode}.apk"
+                    output.outputFileName = outputFileName
+                }
+        }
+
         debug {
+            isDebuggable = true
             isMinifyEnabled = false
+            isShrinkResources = false
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
+            resValue("string", "app_name", "Money Control Stage")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
+
         release {
+            isDebuggable = false
             isMinifyEnabled = true
+            isShrinkResources = true
+            resValue("string", "app_name", "Money Control")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
