@@ -1,9 +1,7 @@
 package com.dk24.moneycontrol.composables
 
-import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -13,15 +11,22 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.utilites.SetStatusBarColor
-import com.dk24.moneycontrol.viewmodels.DashboardViewModel
+import com.dk24.moneycontrol.viewmodels.PeggyBankViewModel
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DashboardViewCompose(drawerState: DrawerState) {
-    val viewModel = viewModel<DashboardViewModel>()
+fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
+    val viewModel = viewModel<PeggyBankViewModel>()
     val bg = MaterialTheme.colorScheme.background
+
     Scaffold(
+        modifier = Modifier
+            .background(bg),
+        floatingActionButton = {
+            CircleFabButton(contentDescription = "") {
+
+            }
+        },
         topBar = {
             TopBarCompose(
                 title = viewModel.getTitle(),
@@ -30,14 +35,9 @@ fun DashboardViewCompose(drawerState: DrawerState) {
             )
         },
         content = { _ ->
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(bg)
-            ) {
 
-            }
         }
     )
+    
     SetStatusBarColor(color = bg)
 }

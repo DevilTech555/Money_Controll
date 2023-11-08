@@ -7,8 +7,11 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 fun Activity.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, duration).show()
@@ -37,4 +40,12 @@ fun getVersionNameAndVersionCode(context: Context, onlyVersionName: Boolean = fa
     } else pInfo?.versionCode
 
     return "$version" + if (onlyVersionName) "" else " - $versionCode"
+}
+
+@Composable
+fun SetStatusBarColor(color: Color) {
+    val systemUiController = rememberSystemUiController()
+    SideEffect {
+        systemUiController.setSystemBarsColor(color)
+    }
 }

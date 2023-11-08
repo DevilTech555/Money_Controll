@@ -104,4 +104,7 @@ dependencies {
 
     // Required -- View Swipe
     implementation("me.saket.swipe:swipe:1.2.0")
+
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+
 }

@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import com.dk24.moneycontrol.composables.AboutViewCompose
 import com.dk24.moneycontrol.composables.DashboardViewCompose
 import com.dk24.moneycontrol.composables.MonthlyGoalsViewCompose
+import com.dk24.moneycontrol.composables.PeggyBankViewCompose
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -28,6 +29,9 @@ fun MainViewNavigationHost(
         }
         composable(MainViewNavigationRoutes.MONTHLY_GOALS_SCREEN) {
             MonthlyGoalsViewCompose(drawerState = drawerState)
+        }
+        composable(MainViewNavigationRoutes.POT_SCREEN) {
+            PeggyBankViewCompose(drawerState = drawerState, context)
         }
         composable(MainViewNavigationRoutes.ABOUT_SCREEN) {
             AboutViewCompose(drawerState = drawerState, context)

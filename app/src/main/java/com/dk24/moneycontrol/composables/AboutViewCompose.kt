@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dk24.moneycontrol.enums.TopBarNavigationType
+import com.dk24.moneycontrol.utilites.SetStatusBarColor
 import com.dk24.moneycontrol.utilites.getVersionNameAndVersionCode
 import com.dk24.moneycontrol.viewmodels.AboutViewModel
 
@@ -26,6 +27,7 @@ import com.dk24.moneycontrol.viewmodels.AboutViewModel
 fun AboutViewCompose(drawerState: DrawerState, context: Context) {
 
     val viewModel = viewModel<AboutViewModel>()
+    val bg = MaterialTheme.colorScheme.background
 
     Scaffold(
         topBar = {
@@ -39,7 +41,7 @@ fun AboutViewCompose(drawerState: DrawerState, context: Context) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background),
+                    .background(bg),
                 verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -48,4 +50,6 @@ fun AboutViewCompose(drawerState: DrawerState, context: Context) {
             }
         }
     )
+
+    SetStatusBarColor(color = bg)
 }

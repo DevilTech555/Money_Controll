@@ -3,9 +3,11 @@ package com.dk24.moneycontrol.viewmodels
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.lifecycle.ViewModel
@@ -26,6 +28,12 @@ class NavigationViewModel : ViewModel() {
             selectedIcon = Icons.Filled.ThumbUp,
             unselectedIcon = Icons.Outlined.ThumbUp,
             route = MainViewNavigationRoutes.MONTHLY_GOALS_SCREEN
+        ),
+        NavigationItem(
+            title = "Peggy Bank",
+            selectedIcon = Icons.Filled.Star,
+            unselectedIcon = Icons.Outlined.Star,
+            route = MainViewNavigationRoutes.POT_SCREEN
         ),
         NavigationItem(
             title = "About",

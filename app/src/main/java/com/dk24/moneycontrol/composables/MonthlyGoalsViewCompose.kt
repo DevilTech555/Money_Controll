@@ -19,6 +19,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dk24.moneycontrol.db.entities.MonthlyGoals
 import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.utilites.Constants
+import com.dk24.moneycontrol.utilites.SetStatusBarColor
 import com.dk24.moneycontrol.viewmodels.MonthlyGoalsViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -27,8 +28,11 @@ import com.dk24.moneycontrol.viewmodels.MonthlyGoalsViewModel
 fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
 
     val viewModel = viewModel<MonthlyGoalsViewModel>()
+    val bg = MaterialTheme.colorScheme.background
 
     Scaffold(
+        modifier = Modifier
+            .background(bg),
         topBar = {
             TopBarCompose(
                 title = viewModel.getTitle(),
@@ -47,7 +51,6 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
                 LazyColumn(
                     modifier = Modifier
                         .padding(innerPadding)
-                        .background(MaterialTheme.colorScheme.background)
                 ) {
 
                     viewModel.getGoals().groupBy { it.isAchieved }.toSortedMap(compareBy { it })
@@ -125,4 +128,6 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
             }
         }
     )
+
+    SetStatusBarColor(color = bg)
 }
