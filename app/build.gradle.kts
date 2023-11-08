@@ -105,6 +105,7 @@ dependencies {
     // Required -- View Swipe
     implementation("me.saket.swipe:swipe:1.2.0")
 
+    // Required -- To modify system UI https://google.github.io/accompanist/swiperefresh/
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
 
 }
