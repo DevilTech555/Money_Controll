@@ -351,9 +351,43 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "12:4742769526968900116",
+      "lastPropertyId": "5:1278810982861777645",
+      "name": "Pot",
+      "properties": [
+        {
+          "id": "1:2009630972062431643",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:7314233706936847875",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:983247117062865704",
+          "name": "totalAmount",
+          "type": 6
+        },
+        {
+          "id": "4:7134050981174343071",
+          "name": "savedAmount",
+          "type": 6
+        },
+        {
+          "id": "5:1278810982861777645",
+          "name": "isCompleted",
+          "type": 1
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "11:5238518405293963745",
+  "lastEntityId": "12:4742769526968900116",
   "lastIndexId": "5:8074324997674363860",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

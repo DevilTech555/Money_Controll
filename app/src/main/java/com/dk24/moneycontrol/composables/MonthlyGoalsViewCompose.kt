@@ -14,9 +14,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.dk24.moneycontrol.R
 import com.dk24.moneycontrol.db.entities.MonthlyGoals
+import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.SetStatusBarColor
@@ -41,7 +44,7 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
             )
         },
         floatingActionButton = {
-            CircleFabButton(contentDescription = "Add a goal") {
+            CircleFabButton(contentDescription = stringResource(id = R.string.fab_cd_add_month_goal)) {
                 viewModel.isAddGoalDialogVisible.value = true
             }
         },
@@ -57,7 +60,11 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
                         .forEach { (isAchieved, contactsForInitial) ->
 
                             stickyHeader {
-                                MonthlyGoalsStickyHeader(if (isAchieved == true) "Achieved" else "Non-Achieved")
+                                MonthlyGoalsStickyHeader(
+                                    if (isAchieved == true) stringResource(id = R.string.achieved) else stringResource(
+                                        id = R.string.non_achieved
+                                    )
+                                )
                             }
                             item {
                                 Spacer(modifier = Modifier.height(6.dp))
@@ -69,12 +76,18 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
                                         this.isAchieved = it
                                         viewModel.updateGoal(this)
                                     }
-                                }, onDelete = {
-                                    viewModel.selectedGoal = it
-                                    viewModel.isDeleteGoalDialogVisible.value = true
-                                }, onEdit = {
-                                    viewModel.selectedGoal = it
-                                    viewModel.isEditGoalDialogVisible.value = true
+                                }, onChange = { monthlyGoals, dbOperationType ->
+                                    when (dbOperationType) {
+                                        DBOperationType.DELETE -> {
+                                            viewModel.selectedGoal = monthlyGoals
+                                            viewModel.isDeleteGoalDialogVisible.value = true
+                                        }
+
+                                        DBOperationType.EDIT -> {
+                                            viewModel.selectedGoal = monthlyGoals
+                                            viewModel.isEditGoalDialogVisible.value = true
+                                        }
+                                    }
                                 })
 
                             }
@@ -114,12 +127,14 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
             if (viewModel.isDeleteGoalDialogVisible.value) {
                 viewModel.selectedGoal?.let {
                     DeleteGoalDialogCompose(
+                        title = stringResource(R.string.warning),
+                        message = stringResource(R.string.month_goal_delete_dialog_text),
                         monthlyGoal = it,
                         onDismissRequest = {
                             viewModel.isDeleteGoalDialogVisible.value = false
                         },
                         onDelete = { value ->
-                            viewModel.removeGoal(value)
+                            viewModel.removeGoal(value as MonthlyGoals)
                         }
                     )
                 } ?: run {

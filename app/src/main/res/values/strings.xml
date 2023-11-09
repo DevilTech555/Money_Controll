@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">Money Control</string>
+
+    <!--    Fab -->
+    <string name="fab_cd_add_month_goal">Add a goal</string>
+    <string name="fab_cd_add_pot">Add a pot</string>
+
+    <!--    Dialog Titles   -->
+    <string name="warning">Warning</string>
+
+    <!--    Dialog Messages   -->
+    <string name="month_goal_delete_dialog_text">Selected goal will be deleted.</string>
+    <string name="pot_delete_dialog_text">Selected money pot will be deleted.</string>
+
+    <!-- Button Labels -->
+    <string name="update">Update</string>
+    <string name="confirm">Confirm</string>
+    <string name="add">Add</string>
+
+    <!-- Text Labels -->
+    <string name="add_amount">Add Amount</string>
+    <string name="add_pot">Add Pot</string>
+    <string name="update_pot">Update Pot</string>
+    <string name="add_goal">Add Goal</string>
+    <string name="update_goal">Update Goal</string>
+    <string name="achieved">Achieved</string>
+    <string name="non_achieved">Non-Achieved</string>
+    <string name="pot_name">Pot name</string>
+    <string name="total_amount">Total amount</string>
 </resources>

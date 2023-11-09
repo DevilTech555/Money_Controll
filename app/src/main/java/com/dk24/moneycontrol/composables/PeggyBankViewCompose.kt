@@ -13,8 +13,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.dk24.moneycontrol.R
+import com.dk24.moneycontrol.db.entities.Pot
+import com.dk24.moneycontrol.db.entities.PotTransactions
+import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.utilites.SetStatusBarColor
 import com.dk24.moneycontrol.viewmodels.PeggyBankViewModel
@@ -29,8 +34,8 @@ fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
         modifier = Modifier
             .background(bg),
         floatingActionButton = {
-            CircleFabButton(contentDescription = "") {
-
+            CircleFabButton(contentDescription = stringResource(id = R.string.fab_cd_add_pot)) {
+                viewModel.isAddPotDialogVisible.value = true
             }
         },
         topBar = {
@@ -51,10 +56,63 @@ fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
                     modifier = Modifier.weight(1f),
                 ) {
                     items(viewModel.getPotList()) { pot ->
-                        PeggyBankPotViewCompose(pot = pot, onClick = {
+                        PeggyBankPotViewCompose(pot = pot, onClick = { data, type ->
+                            when (type) {
+                                DBOperationType.EDIT -> {
+                                    viewModel.selectedPot = data
+                                    viewModel.isUpdatePotDialogVisible.value = true
+                                }
 
+                                DBOperationType.DELETE -> {
+                                    viewModel.selectedPot = data
+                                    viewModel.isDeletePotDialogVisible.value = true
+                                }
+                            }
                         })
                     }
+                }
+            }
+
+            if (viewModel.isAddPotDialogVisible.value) {
+                AddUpdatePotDialogCompose(onDismissRequest = {
+                    viewModel.isAddPotDialogVisible.value = false
+                }, onAdd = { data ->
+                    if (data is Pot) {
+                        viewModel.addPot(data)
+                    }
+                })
+            }
+
+            if (viewModel.isUpdatePotDialogVisible.value) {
+                AddUpdatePotDialogCompose(
+                    pot = viewModel.selectedPot,
+                    onDismissRequest = {
+                        viewModel.isUpdatePotDialogVisible.value = false
+                    }, onAdd = { data ->
+                        if (data is Pot) {
+                            viewModel.updatePot(data)
+                        }
+                        if (data is PotTransactions) {
+                            viewModel.addMoney(data)
+                        }
+                    })
+            }
+
+            if (viewModel.isDeletePotDialogVisible.value) {
+                viewModel.selectedPot?.let {
+                    DeleteGoalDialogCompose(
+                        title = stringResource(R.string.warning),
+                        message = stringResource(R.string.pot_delete_dialog_text),
+                        monthlyGoal = it,
+                        onDismissRequest = {
+                            viewModel.isDeletePotDialogVisible.value = false
+                        },
+                        onDelete = { value ->
+                            viewModel.removePot(value as Pot)
+                        }
+                    )
+                } ?: run {
+                    viewModel.isDeletePotDialogVisible.value = false
                 }
             }
         }

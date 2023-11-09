@@ -30,13 +30,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.dk24.moneycontrol.R
+import com.dk24.moneycontrol.db.entities.MonthlyGoals
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddGoalDialogCompose(
-    onDismissRequest: () -> Unit, onAdd: (String) -> Unit
+fun UpdateGoalDialogCompose(
+    monthlyGoal: MonthlyGoals,
+    onDismissRequest: () -> Unit,
+    onUpdate: (MonthlyGoals) -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -59,15 +62,16 @@ fun AddGoalDialogCompose(
                     .padding(top = 16.dp)
             ) {
 
-                var goalTextValue by rememberSaveable { mutableStateOf("") }
+                var goalTextValue by rememberSaveable { mutableStateOf(monthlyGoal.description.orEmpty()) }
 
                 Text(
-                    text = stringResource(id = R.string.add_goal),
+                    text = stringResource(id = R.string.update_goal),
                     style = MaterialTheme.typography.titleMedium
                 )
 
                 OutlinedTextField(value = goalTextValue, onValueChange = {
                     goalTextValue = it
+                    monthlyGoal.description = it
                 }, modifier = Modifier.padding(vertical = 12.dp))
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -79,12 +83,12 @@ fun AddGoalDialogCompose(
                 ) {
                     Spacer(modifier = Modifier.weight(1f))
                     TextButton(
-                        onClick = { onAdd(goalTextValue) },
+                        onClick = { onUpdate(monthlyGoal) },
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
                             .padding(bottom = 12.dp),
                     ) {
-                        Text(stringResource(id = R.string.add))
+                        Text(stringResource(id = R.string.update))
                     }
                 }
             }

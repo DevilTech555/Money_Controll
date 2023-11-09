@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.dk24.moneycontrol.db.entities.MonthlyGoals
+import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.utilites.changeAlpha
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
@@ -25,15 +26,14 @@ import me.saket.swipe.SwipeableActionsBox
 fun GoalsListItem(
     monthlyGoals: MonthlyGoals,
     onCheckedChange: (Boolean) -> Unit,
-    onDelete: (MonthlyGoals) -> Unit,
-    onEdit: (MonthlyGoals) -> Unit
+    onChange: (MonthlyGoals, DBOperationType) -> Unit
 ) {
 
     val delete = SwipeAction(
         icon = { Icon(Icons.TwoTone.Delete, "") },
         background = Color.Transparent,
         onSwipe = {
-            onDelete(monthlyGoals)
+            onChange(monthlyGoals, DBOperationType.DELETE)
         }
     )
 
@@ -41,7 +41,7 @@ fun GoalsListItem(
         icon = { Icon(Icons.TwoTone.Edit, "") },
         background = Color.Transparent,
         onSwipe = {
-            onEdit(monthlyGoals)
+            onChange(monthlyGoals, DBOperationType.EDIT)
         }
     )
 
