@@ -213,8 +213,11 @@ fun AddMoney(
 
     OutlinedTextField(
         value = amount, onValueChange = {
-            if (it.isBlank()) amountChange("0")
-            if (it.isDigitsOnly() && it.toLong() > 0) amountChange(it) else amountChange("0")
+            if (it.isBlank()) {
+                amountChange("")
+                return@OutlinedTextField
+            }
+            if (it.isDigitsOnly() && it.toLong() > 0) amountChange(it) else amountChange("")
         }, modifier = Modifier.padding(vertical = 12.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
     )
@@ -253,8 +256,11 @@ fun AddUpdatePotViewCompose(
     OutlinedTextField(
         value = totalAmount,
         onValueChange = {
-            if (it.isBlank()) totalAmountChange("0")
-            if (it.isDigitsOnly() && it.toLong() > 0) totalAmountChange(it) else totalAmountChange("0")
+            if (it.isBlank()){
+                totalAmountChange("")
+                return@OutlinedTextField
+            }
+            if (it.isDigitsOnly() && it.toLong() > 0) totalAmountChange(it) else totalAmountChange("")
         },
         modifier = Modifier.padding(vertical = 12.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)

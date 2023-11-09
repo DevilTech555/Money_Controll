@@ -134,7 +134,11 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState) {
                             viewModel.isDeleteGoalDialogVisible.value = false
                         },
                         onDelete = { value ->
-                            viewModel.removeGoal(value as MonthlyGoals)
+                            if (value is MonthlyGoals) {
+                                viewModel.removeGoal(value)
+                            } else {
+                                viewModel.isDeleteGoalDialogVisible.value = false
+                            }
                         }
                     )
                 } ?: run {
