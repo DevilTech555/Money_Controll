@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.composables
+package com.dk24.moneycontrol.ui.composables
 
 import android.annotation.SuppressLint
 import android.content.Context

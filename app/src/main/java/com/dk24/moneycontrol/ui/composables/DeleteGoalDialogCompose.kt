@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.composables
+package com.dk24.moneycontrol.ui.composables
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.AlertDialog

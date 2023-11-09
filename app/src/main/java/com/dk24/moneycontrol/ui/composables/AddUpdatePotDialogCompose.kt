@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.composables
+package com.dk24.moneycontrol.ui.composables
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -36,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.core.text.isDigitsOnly
 import com.dk24.moneycontrol.R
 import com.dk24.moneycontrol.db.entities.Pot
 import com.dk24.moneycontrol.db.entities.PotTransactions
@@ -47,7 +48,7 @@ import com.dk24.moneycontrol.utilites.changeAlpha
 fun AddUpdatePotDialogCompose(
     pot: Pot? = null,
     onDismissRequest: () -> Unit,
-    onAdd: (Any) -> Unit
+    onAdd: (Any?) -> Unit
 ) {
 
     var selectedIndex by remember { mutableIntStateOf(0) }
@@ -144,6 +145,10 @@ fun AddUpdatePotDialogCompose(
                         onClick = {
                             when (selectedIndex) {
                                 0 -> {
+                                    if (amountValue.isBlank()) {
+                                        onAdd(null)
+                                        return@TextButton
+                                    }
                                     PotTransactions(
                                         amount = amountValue.toLong(),
                                         timestamp = System.currentTimeMillis()
@@ -162,16 +167,20 @@ fun AddUpdatePotDialogCompose(
                                         }
                                         return@TextButton
                                     }
+                                    if (
+                                        potNameValue.isBlank() && totalAmountValue.toLong() == 0L
+                                    ) {
+                                        onAdd(null)
+                                        return@TextButton
+                                    }
                                     Pot(
                                         name = potNameValue,
                                         totalAmount = totalAmountValue.toLong(),
                                         savedAmount = 0L,
                                         isCompleted = false
-                                    )
-
-                                        .apply {
-                                            onAdd(this)
-                                        }
+                                    ).apply {
+                                        onAdd(this)
+                                    }
                                 }
                             }
                         },
@@ -204,7 +213,8 @@ fun AddMoney(
 
     OutlinedTextField(
         value = amount, onValueChange = {
-            amountChange(it)
+            if (it.isBlank()) amountChange("0")
+            if (it.isDigitsOnly() && it.toLong() > 0) amountChange(it) else amountChange("0")
         }, modifier = Modifier.padding(vertical = 12.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
     )
@@ -243,7 +253,8 @@ fun AddUpdatePotViewCompose(
     OutlinedTextField(
         value = totalAmount,
         onValueChange = {
-            totalAmountChange(it)
+            if (it.isBlank()) totalAmountChange("0")
+            if (it.isDigitsOnly() && it.toLong() > 0) totalAmountChange(it) else totalAmountChange("0")
         },
         modifier = Modifier.padding(vertical = 12.dp),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)

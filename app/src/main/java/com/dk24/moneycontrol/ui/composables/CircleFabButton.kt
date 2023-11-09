@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.composables
+package com.dk24.moneycontrol.ui.composables
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons

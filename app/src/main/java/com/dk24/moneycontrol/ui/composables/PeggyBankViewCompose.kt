@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.composables
+package com.dk24.moneycontrol.ui.composables
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -79,6 +79,8 @@ fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
                 }, onAdd = { data ->
                     if (data is Pot) {
                         viewModel.addPot(data)
+                    } else {
+                        viewModel.isAddPotDialogVisible.value = false
                     }
                 })
             }
@@ -89,6 +91,9 @@ fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
                     onDismissRequest = {
                         viewModel.isUpdatePotDialogVisible.value = false
                     }, onAdd = { data ->
+                        if (data == null) {
+                            viewModel.isUpdatePotDialogVisible.value = false
+                        }
                         if (data is Pot) {
                             viewModel.updatePot(data)
                         }
