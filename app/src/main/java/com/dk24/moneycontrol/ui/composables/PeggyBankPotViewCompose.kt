@@ -54,7 +54,7 @@ fun PeggyBankPotViewCompose(
         ) {
             val total = pot.totalAmount?.toFloat() ?: 1f
             val saved = pot.savedAmount?.toFloat() ?: 1f
-            val percentage: Float = saved.div(total)
+            val percentage: Float = if(total != 0f && saved != 0f) saved.div(total) else 0f
             CircularProgressBarCompose(
                 modifier = Modifier.fillMaxSize(),
                 percentage = percentage,
