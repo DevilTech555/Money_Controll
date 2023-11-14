@@ -2,7 +2,6 @@ package com.dk24.moneycontrol.navigation
 
 import android.content.Context
 import androidx.compose.material3.DrawerState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,7 +11,6 @@ import com.dk24.moneycontrol.ui.composables.DashboardViewCompose
 import com.dk24.moneycontrol.ui.composables.MonthlyGoalsViewCompose
 import com.dk24.moneycontrol.ui.composables.PeggyBankViewCompose
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainViewNavigationHost(
     navController: NavHostController,
