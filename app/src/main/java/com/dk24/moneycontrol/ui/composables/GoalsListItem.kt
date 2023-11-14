@@ -24,7 +24,7 @@ import me.saket.swipe.SwipeableActionsBox
 
 @Composable
 fun GoalsListItem(
-    monthlyGoals: MonthlyGoals,
+    monthlyGoal: MonthlyGoals,
     onCheckedChange: (Boolean) -> Unit,
     onChange: (MonthlyGoals, DBOperationType) -> Unit
 ) {
@@ -33,7 +33,7 @@ fun GoalsListItem(
         icon = { Icon(Icons.TwoTone.Delete, "") },
         background = Color.Transparent,
         onSwipe = {
-            onChange(monthlyGoals, DBOperationType.DELETE)
+            onChange(monthlyGoal, DBOperationType.DELETE)
         }
     )
 
@@ -41,7 +41,7 @@ fun GoalsListItem(
         icon = { Icon(Icons.TwoTone.Edit, "") },
         background = Color.Transparent,
         onSwipe = {
-            onChange(monthlyGoals, DBOperationType.EDIT)
+            onChange(monthlyGoal, DBOperationType.EDIT)
         }
     )
 
@@ -63,14 +63,14 @@ fun GoalsListItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = monthlyGoals.description.orEmpty(),
+                text = monthlyGoal.description.orEmpty(),
                 modifier = Modifier
                     .padding(end = 12.dp)
                     .weight(1f),
                 style = MaterialTheme.typography.bodyLarge
             )
             CircularCheckbox(
-                checked = monthlyGoals.isAchieved ?: false, onCheckedChange = onCheckedChange
+                checked = monthlyGoal.isAchieved, onCheckedChange = onCheckedChange
             )
         }
     }

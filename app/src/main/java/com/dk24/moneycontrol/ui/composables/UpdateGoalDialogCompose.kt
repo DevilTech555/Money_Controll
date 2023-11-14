@@ -37,9 +37,9 @@ import com.dk24.moneycontrol.utilites.changeAlpha
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpdateGoalDialogCompose(
-    monthlyGoal: MonthlyGoals,
+    monthlyGoal: MonthlyGoals?,
     onDismissRequest: () -> Unit,
-    onUpdate: (MonthlyGoals) -> Unit
+    onUpdate: (MonthlyGoals?) -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -62,7 +62,7 @@ fun UpdateGoalDialogCompose(
                     .padding(top = 16.dp)
             ) {
 
-                var goalTextValue by rememberSaveable { mutableStateOf(monthlyGoal.description.orEmpty()) }
+                var goalTextValue by rememberSaveable { mutableStateOf(monthlyGoal?.description.orEmpty()) }
 
                 Text(
                     text = stringResource(id = R.string.update_goal),
@@ -71,7 +71,7 @@ fun UpdateGoalDialogCompose(
 
                 OutlinedTextField(value = goalTextValue, onValueChange = {
                     goalTextValue = it
-                    monthlyGoal.description = it
+                    monthlyGoal?.description = it
                 }, modifier = Modifier.padding(vertical = 12.dp))
 
                 Spacer(modifier = Modifier.weight(1f))

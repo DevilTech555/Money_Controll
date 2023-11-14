@@ -28,7 +28,7 @@ fun MainViewNavigationHost(
             DashboardViewCompose(drawerState = drawerState)
         }
         composable(MainViewNavigationRoutes.MONTHLY_GOALS_SCREEN) {
-            MonthlyGoalsViewCompose(drawerState = drawerState)
+            MonthlyGoalsViewCompose(drawerState = drawerState, context)
         }
         composable(MainViewNavigationRoutes.POT_SCREEN) {
             PeggyBankViewCompose(drawerState = drawerState, context)

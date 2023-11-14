@@ -17,9 +17,9 @@ import com.dk24.moneycontrol.utilites.changeAlpha
 fun DeleteGoalDialogCompose(
     title: String,
     message: String,
-    monthlyGoal: Any,
+    monthlyGoal: Any?,
     onDismissRequest: () -> Unit,
-    onDelete: (Any) -> Unit
+    onDelete: (Any?) -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),

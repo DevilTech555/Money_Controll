@@ -104,21 +104,17 @@ fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
             }
 
             if (viewModel.isDeletePotDialogVisible.value) {
-                viewModel.selectedPot?.let {
-                    DeleteGoalDialogCompose(
-                        title = stringResource(R.string.warning),
-                        message = stringResource(R.string.pot_delete_dialog_text),
-                        monthlyGoal = it,
-                        onDismissRequest = {
-                            viewModel.isDeletePotDialogVisible.value = false
-                        },
-                        onDelete = { value ->
-                            viewModel.removePot(value as Pot)
-                        }
-                    )
-                } ?: run {
-                    viewModel.isDeletePotDialogVisible.value = false
-                }
+                DeleteGoalDialogCompose(
+                    title = stringResource(R.string.warning),
+                    message = stringResource(R.string.pot_delete_dialog_text),
+                    monthlyGoal = viewModel.selectedPot,
+                    onDismissRequest = {
+                        viewModel.isDeletePotDialogVisible.value = false
+                    },
+                    onDelete = { value ->
+                        viewModel.removePot(value as Pot)
+                    }
+                )
             }
         }
     )

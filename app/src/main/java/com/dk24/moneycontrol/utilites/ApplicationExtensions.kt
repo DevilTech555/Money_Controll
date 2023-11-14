@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
-fun Activity.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+fun Context.showToast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, duration).show()
 }
 

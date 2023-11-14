@@ -2,15 +2,11 @@ package com.dk24.moneycontrol.viewmodels
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.dk24.moneycontrol.db.entities.MonthlyGoals
 import com.dk24.moneycontrol.db.entities.Pot
 import com.dk24.moneycontrol.db.entities.PotTransactions
 import com.dk24.moneycontrol.db.store.ObjectBoxStore
 
 class PeggyBankViewModel : ViewModel() {
-
-    private val peggyBankBox = ObjectBoxStore.get().boxFor(Pot::class.java)
-    private val peggyBankTransactionsBox = ObjectBoxStore.get().boxFor(PotTransactions::class.java)
 
     private val title = "Peggy Bank"
 
@@ -30,23 +26,23 @@ class PeggyBankViewModel : ViewModel() {
 
     private fun resetPotList() {
         potList.clear()
-        potList.addAll(peggyBankBox.all)
+        potList.addAll(ObjectBoxStore.getBoxForPots().all)
     }
 
     fun addPot(pot: Pot) {
-        peggyBankBox.put(pot)
+        ObjectBoxStore.getBoxForPots().put(pot)
         resetPotList()
         isAddPotDialogVisible.value = false
     }
 
     fun updatePot(pot: Pot) {
-        peggyBankBox.put(pot)
+        ObjectBoxStore.getBoxForPots().put(pot)
         resetPotList()
         isUpdatePotDialogVisible.value = false
     }
 
     fun addMoney(potTransaction: PotTransactions) {
-        peggyBankTransactionsBox.put(potTransaction)
+        ObjectBoxStore.getBoxForPotTransactions().put(potTransaction)
         updateTotalSavings()
         resetPotList()
         isUpdatePotDialogVisible.value = false
@@ -54,15 +50,16 @@ class PeggyBankViewModel : ViewModel() {
 
     fun removePot(pot: Pot) {
         deleteTransactions(pot)
-        peggyBankBox.remove(pot)
+        ObjectBoxStore.getBoxForPots().remove(pot)
         resetPotList()
         isDeletePotDialogVisible.value = false
     }
 
 
     private fun updateTotalSavings() {
-        val pots = peggyBankBox.all.filter { it.isCompleted == false }
-        val potTransactions = peggyBankTransactionsBox.all.groupBy { it.potDetails.target.id }
+        val pots = ObjectBoxStore.getBoxForPots().all.filter { it.isCompleted == false }
+        val potTransactions =
+            ObjectBoxStore.getBoxForPotTransactions().all.groupBy { it.potDetails.target.id }
 
         pots.forEach { pot ->
             potTransactions[pot.id]?.let { transactions ->
@@ -75,18 +72,19 @@ class PeggyBankViewModel : ViewModel() {
 
                 if (savedTotal != 0L) {
                     pot.savedAmount = savedTotal
-                    peggyBankBox.put(pot)
+                    ObjectBoxStore.getBoxForPots().put(pot)
                 }
             }
         }
     }
 
     private fun deleteTransactions(pot: Pot) {
-        val potTransactions = peggyBankTransactionsBox.all.groupBy { it.potDetails.target.id }
+        val potTransactions =
+            ObjectBoxStore.getBoxForPotTransactions().all.groupBy { it.potDetails.target.id }
         if (potTransactions.containsKey(pot.id)) {
             potTransactions[pot.id]?.let { transitions ->
                 transitions.forEach {
-                    peggyBankTransactionsBox.remove(it)
+                    ObjectBoxStore.getBoxForPotTransactions().remove(it)
                 }
             }
         }
