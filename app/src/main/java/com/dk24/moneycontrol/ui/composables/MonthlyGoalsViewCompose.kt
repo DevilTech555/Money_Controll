@@ -38,6 +38,7 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState, context: Context) {
 
     val viewModel = viewModel<MonthlyGoalsViewModel>()
     val goalsList by viewModel.goalsFlow.collectAsState(initial = emptyList())
+
     var isDeleteGoalDialogVisible by remember {
         mutableStateOf(false)
     }
