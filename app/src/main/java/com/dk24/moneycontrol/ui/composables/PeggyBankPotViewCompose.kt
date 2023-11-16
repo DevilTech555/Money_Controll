@@ -23,15 +23,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.dk24.moneycontrol.db.objectbox.entities.Pot
+import com.dk24.moneycontrol.db.room.model.MPot
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha
 
 @Composable
 fun PeggyBankPotViewCompose(
-    pot: Pot,
-    onClick: (Pot, DBOperationType) -> Unit
+    mPot: MPot,
+    onClick: (MPot, DBOperationType) -> Unit
 ) {
     Surface(
         modifier = Modifier
@@ -48,13 +48,15 @@ fun PeggyBankPotViewCompose(
                     RoundedCornerShape(16.dp)
                 )
                 .clickable(onClick = {
-                    onClick(pot, DBOperationType.EDIT)
+                    if (!mPot.isCompleted) {
+                        onClick(mPot, DBOperationType.EDIT)
+                    }
                 })
                 .padding(28.dp)
         ) {
-            val total = pot.totalAmount?.toFloat() ?: 1f
-            val saved = pot.savedAmount?.toFloat() ?: 1f
-            val percentage: Float = if(total != 0f && saved != 0f) saved.div(total) else 0f
+            val total = mPot.totalAmount
+            val saved = mPot.savedAmount
+            val percentage: Float = if (total != 0f && saved != 0f) saved.div(total) else 0f
             CircularProgressBarCompose(
                 modifier = Modifier.fillMaxSize(),
                 percentage = percentage,
@@ -64,7 +66,7 @@ fun PeggyBankPotViewCompose(
             )
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = pot.name.orEmpty(),
+                text = mPot.name,
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center
             )
@@ -78,7 +80,7 @@ fun PeggyBankPotViewCompose(
                 .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
                 .align(Alignment.TopEnd),
                 onClick = {
-                    onClick(pot, DBOperationType.DELETE)
+                    onClick(mPot, DBOperationType.DELETE)
                 }) {
                 Icon(Icons.TwoTone.Delete, "")
             }
@@ -86,7 +88,7 @@ fun PeggyBankPotViewCompose(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(bottom = 12.dp),
-                text = "${pot.totalAmount}${Constants.currencyType} / ${pot.savedAmount}${Constants.currencyType}",
+                text = "${mPot.totalAmount}${Constants.currencyType} / ${mPot.savedAmount}${Constants.currencyType}",
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
             )

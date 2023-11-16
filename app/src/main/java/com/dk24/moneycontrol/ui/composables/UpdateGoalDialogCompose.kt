@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -30,16 +29,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.dk24.moneycontrol.R
-import com.dk24.moneycontrol.db.objectbox.entities.MonthlyGoals
+import com.dk24.moneycontrol.db.room.model.MonthlyGoal
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpdateGoalDialogCompose(
-    monthlyGoal: MonthlyGoals?,
+    monthlyGoal: MonthlyGoal?,
     onDismissRequest: () -> Unit,
-    onUpdate: (MonthlyGoals?) -> Unit
+    onUpdate: (MonthlyGoal?) -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),

@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.dk24.moneycontrol.db.objectbox.entities.MonthlyGoals
+import com.dk24.moneycontrol.db.room.model.MonthlyGoal
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.utilites.changeAlpha
 import me.saket.swipe.SwipeAction
@@ -24,9 +24,9 @@ import me.saket.swipe.SwipeableActionsBox
 
 @Composable
 fun GoalsListItem(
-    monthlyGoal: MonthlyGoals,
+    monthlyGoal: MonthlyGoal,
     onCheckedChange: (Boolean) -> Unit,
-    onChange: (MonthlyGoals, DBOperationType) -> Unit
+    onChange: (MonthlyGoal, DBOperationType) -> Unit
 ) {
 
     val delete = SwipeAction(
@@ -63,7 +63,7 @@ fun GoalsListItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = monthlyGoal.description.orEmpty(),
+                text = monthlyGoal.description,
                 modifier = Modifier
                     .padding(end = 12.dp)
                     .weight(1f),

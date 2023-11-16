@@ -21,6 +21,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -28,33 +29,39 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.core.text.isDigitsOnly
 import com.dk24.moneycontrol.R
-import com.dk24.moneycontrol.db.objectbox.entities.Pot
-import com.dk24.moneycontrol.db.objectbox.entities.PotTransactions
+import com.dk24.moneycontrol.db.room.model.MPot
+import com.dk24.moneycontrol.db.room.model.MPotTransaction
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha
 
 @ExperimentalMaterial3Api
 @Composable
 fun AddUpdatePotDialogCompose(
-    pot: Pot? = null,
+    mPot: MPot? = null,
     onDismissRequest: () -> Unit,
     onAdd: (Any?) -> Unit
 ) {
 
     var selectedIndex by remember { mutableIntStateOf(0) }
+
     val options = listOf("Add Money", "Update Pot")
 
-    var potNameValue by rememberSaveable { mutableStateOf(pot?.name.orEmpty()) }
+    var potNameValue by rememberSaveable { mutableStateOf(mPot?.name.orEmpty()) }
     var totalAmountValue by rememberSaveable {
         mutableStateOf(
-            if (pot?.totalAmount == null) "0" else pot.totalAmount.toString()
+            if (mPot?.totalAmount == null) "0" else mPot.totalAmount.toString()
         )
     }
     var amountValue by rememberSaveable { mutableStateOf("") }
@@ -80,13 +87,14 @@ fun AddUpdatePotDialogCompose(
                     .padding(top = 16.dp)
             ) {
 
-                if (pot == null) {
+                if (mPot == null) {
                     selectedIndex = 1
                 }
 
                 when (selectedIndex) {
                     0 -> {
                         AddMoney(
+                            mPot = mPot,
                             amount = amountValue,
                             amountChange = {
                                 amountValue = it
@@ -95,7 +103,7 @@ fun AddUpdatePotDialogCompose(
 
                     1 -> {
                         AddUpdatePotViewCompose(
-                            pot = pot,
+                            pot = mPot,
                             name = potNameValue,
                             totalAmount = totalAmountValue,
                             nameChange = {
@@ -108,25 +116,12 @@ fun AddUpdatePotDialogCompose(
                     }
                 }
 
-                pot?.let {
+                mPot?.let {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.Center
                     ) {
-//                        SingleChoiceSegmentedButtonRow {
-//                            options.forEachIndexed { index, label ->
-//                                SegmentedButton(
-//                                    shape = SegmentedButtonDefaults.itemShape(
-//                                        index = index,
-//                                        count = options.size
-//                                    ),
-//                                    onClick = { selectedIndex = index },
-//                                    selected = index == selectedIndex
-//                                ) {
-//                                    Text(label)
-//                                }
-//                            }
-//                        }
+
                     }
                 }
 
@@ -146,20 +141,22 @@ fun AddUpdatePotDialogCompose(
                                         onAdd(null)
                                         return@TextButton
                                     }
-                                    PotTransactions(
-                                        amount = amountValue.toLong(),
-                                        timestamp = System.currentTimeMillis()
-                                    ).apply {
-                                        this.potDetails.target = pot
-                                        onAdd(this)
+                                    mPot?.let {
+                                        MPotTransaction(
+                                            amount = amountValue.toFloat(),
+                                            timestamp = System.currentTimeMillis(),
+                                            moneyPotId = mPot.id
+                                        ).apply {
+                                            onAdd(this)
+                                        }
                                     }
                                 }
 
                                 1 -> {
-                                    pot?.let {
-                                        pot.apply {
+                                    mPot?.let {
+                                        mPot.apply {
                                             this.name = potNameValue
-                                            this.totalAmount = totalAmountValue.toLong()
+                                            this.totalAmount = totalAmountValue.toFloat()
                                             onAdd(this)
                                         }
                                         return@TextButton
@@ -170,10 +167,10 @@ fun AddUpdatePotDialogCompose(
                                         onAdd(null)
                                         return@TextButton
                                     }
-                                    Pot(
+                                    MPot(
                                         name = potNameValue,
-                                        totalAmount = totalAmountValue.toLong(),
-                                        savedAmount = 0L,
+                                        totalAmount = totalAmountValue.toFloat(),
+                                        savedAmount = 0F,
                                         isCompleted = false
                                     ).apply {
                                         onAdd(this)
@@ -186,7 +183,7 @@ fun AddUpdatePotDialogCompose(
                             .padding(bottom = 12.dp),
                     ) {
                         Text(
-                            if (pot != null) stringResource(id = R.string.update) else stringResource(
+                            if (mPot != null) stringResource(id = R.string.update) else stringResource(
                                 id = R.string.add
                             )
                         )
@@ -197,11 +194,20 @@ fun AddUpdatePotDialogCompose(
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AddMoney(
+    mPot: MPot?,
     amount: String,
     amountChange: (String) -> Unit
 ) {
+    val focusRequester = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus()
+    }
+
     Text(
         modifier = Modifier.padding(vertical = 12.dp),
         text = stringResource(id = R.string.add_amount),
@@ -214,15 +220,27 @@ fun AddMoney(
                 amountChange("")
                 return@OutlinedTextField
             }
-            if (it.isDigitsOnly() && it.toLong() > 0) amountChange(it) else amountChange("")
-        }, modifier = Modifier.padding(vertical = 12.dp),
+            if (it.isDigitsOnly() && it.toFloat() > 0) {
+                mPot?.let { pot ->
+                    if ((it.toFloat() + pot.savedAmount) <= pot.totalAmount)
+                        amountChange(it)
+                }
+            } else amountChange("")
+        }, modifier = Modifier
+            .padding(vertical = 12.dp)
+            .focusRequester(focusRequester)
+            .onFocusChanged {
+                if (it.isFocused) {
+                    keyboardController?.show()
+                }
+            },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
     )
 }
 
 @Composable
 fun AddUpdatePotViewCompose(
-    pot: Pot?,
+    pot: MPot?,
     name: String,
     totalAmount: String,
     nameChange: (String) -> Unit,
@@ -253,7 +271,7 @@ fun AddUpdatePotViewCompose(
     OutlinedTextField(
         value = totalAmount,
         onValueChange = {
-            if (it.isBlank()){
+            if (it.isBlank()) {
                 totalAmountChange("")
                 return@OutlinedTextField
             }

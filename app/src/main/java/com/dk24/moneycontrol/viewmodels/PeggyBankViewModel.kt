@@ -1,95 +1,74 @@
 package com.dk24.moneycontrol.viewmodels
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.dk24.moneycontrol.db.objectbox.entities.Pot
-import com.dk24.moneycontrol.db.objectbox.entities.PotTransactions
-import com.dk24.moneycontrol.db.objectbox.store.ObjectBoxStore
+import androidx.lifecycle.viewModelScope
+import com.dk24.moneycontrol.db.room.database.MoneyControlDatabase
+import com.dk24.moneycontrol.db.room.model.MPot
+import com.dk24.moneycontrol.db.room.model.MPotTransaction
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class PeggyBankViewModel : ViewModel() {
 
-    private val title = "Peggy Bank"
+    private var database: MoneyControlDatabase = MoneyControlDatabase.getInstance()
 
-    private val potList: MutableList<Pot> = mutableListOf()
+    var moneyPotList: Flow<List<MPot>> = database.mPotDao().getAllPotAsFlow()
 
-    val isUpdatePotDialogVisible = mutableStateOf(false)
-    val isAddPotDialogVisible = mutableStateOf(false)
-    val isDeletePotDialogVisible = mutableStateOf(false)
+    var selectedPot: MPot? = null
 
-    var selectedPot: Pot? = null
-
-    fun getPotList(): MutableList<Pot> {
-        updateTotalSavings()
-        resetPotList()
-        return potList
+    fun addPot(mPot: MPot) {
+        viewModelScope.launch(Dispatchers.IO) {
+            database.mPotDao().insert(mPot)
+        }
     }
 
-    private fun resetPotList() {
-        potList.clear()
-        potList.addAll(ObjectBoxStore.getBoxForPots().all)
-    }
-
-    fun addPot(pot: Pot) {
-        ObjectBoxStore.getBoxForPots().put(pot)
-        resetPotList()
-        isAddPotDialogVisible.value = false
-    }
-
-    fun updatePot(pot: Pot) {
-        ObjectBoxStore.getBoxForPots().put(pot)
-        resetPotList()
-        isUpdatePotDialogVisible.value = false
-    }
-
-    fun addMoney(potTransaction: PotTransactions) {
-        ObjectBoxStore.getBoxForPotTransactions().put(potTransaction)
-        updateTotalSavings()
-        resetPotList()
-        isUpdatePotDialogVisible.value = false
-    }
-
-    fun removePot(pot: Pot) {
-        deleteTransactions(pot)
-        ObjectBoxStore.getBoxForPots().remove(pot)
-        resetPotList()
-        isDeletePotDialogVisible.value = false
+    fun removePot(mPot: MPot) {
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteAllTransactions(mPot)
+            database.mPotDao().delete(mPot)
+        }
     }
 
 
-    private fun updateTotalSavings() {
-        val pots = ObjectBoxStore.getBoxForPots().all.filter { it.isCompleted == false }
-        val potTransactions =
-            ObjectBoxStore.getBoxForPotTransactions().all.groupBy { it.potDetails.target.id }
-
-        pots.forEach { pot ->
-            potTransactions[pot.id]?.let { transactions ->
-                var savedTotal = 0L
-                transactions.forEach {
-                    it.amount?.let { amount ->
-                        savedTotal += amount
-                    }
-                }
-
-                if (savedTotal != 0L) {
-                    pot.savedAmount = savedTotal
-                    ObjectBoxStore.getBoxForPots().put(pot)
-                }
+    fun updatePot(mPot: MPot) {
+        viewModelScope.launch(Dispatchers.IO) {
+            database.mPotDao().delete(mPot)
+            launch {
+                database.mPotDao().insert(mPot)
             }
         }
     }
 
-    private fun deleteTransactions(pot: Pot) {
-        val potTransactions =
-            ObjectBoxStore.getBoxForPotTransactions().all.groupBy { it.potDetails.target.id }
-        if (potTransactions.containsKey(pot.id)) {
-            potTransactions[pot.id]?.let { transitions ->
-                transitions.forEach {
-                    ObjectBoxStore.getBoxForPotTransactions().remove(it)
+    fun addMoneyToPot(mPotTransaction: MPotTransaction) {
+        viewModelScope.launch(Dispatchers.IO) {
+            database.mPotTransactionDao().insert(mPotTransaction)
+            updateMoney()
+        }
+    }
+
+
+    private fun updateMoney() {
+        database.mPotDao().getAllPot().filter { !it.isCompleted }.forEach { mPot ->
+            database.mPotDao().getAllTransactionForPot(mPot.id).apply {
+                var savedTotal = 0f
+                this.mPotTransaction.forEach {
+                    savedTotal += it.amount
                 }
+                this.mPot.savedAmount = savedTotal
+                if (this.mPot.totalAmount == savedTotal) {
+                    this.mPot.isCompleted = true
+                }
+                updatePot(this.mPot)
             }
         }
     }
 
-    fun getTitle() = title
-
+    private fun deleteAllTransactions(mPot: MPot) {
+        database.mPotDao().getAllTransactionForPot(mPot.id).apply {
+            this.mPotTransaction.forEach {
+                database.mPotTransactionDao().delete(it)
+            }
+        }
+    }
 }

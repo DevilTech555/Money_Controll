@@ -385,10 +385,42 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "13:3596633532493941582",
+      "lastPropertyId": "4:1200430267680731245",
+      "name": "PotTransactions",
+      "properties": [
+        {
+          "id": "1:7033180772116691483",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6994795517947498461",
+          "name": "amount",
+          "type": 6
+        },
+        {
+          "id": "3:7109289099794416692",
+          "name": "timestamp",
+          "type": 6
+        },
+        {
+          "id": "4:1200430267680731245",
+          "name": "potDetailsId",
+          "indexId": "6:4669187379077548017",
+          "type": 11,
+          "flags": 520,
+          "relationTarget": "Pot"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "12:4742769526968900116",
-  "lastIndexId": "5:8074324997674363860",
+  "lastEntityId": "13:3596633532493941582",
+  "lastIndexId": "6:4669187379077548017",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 5,

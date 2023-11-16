@@ -241,35 +241,6 @@
       "relations": []
     },
     {
-      "id": "8:1816800361256143629",
-      "lastPropertyId": "4:3995214370991669218",
-      "name": "MonthlyGoals",
-      "properties": [
-        {
-          "id": "1:926218974519932123",
-          "name": "id",
-          "type": 6,
-          "flags": 1
-        },
-        {
-          "id": "2:6194042356353498965",
-          "name": "description",
-          "type": 9
-        },
-        {
-          "id": "3:3873785297998353296",
-          "name": "date",
-          "type": 6
-        },
-        {
-          "id": "4:3995214370991669218",
-          "name": "isAchieved",
-          "type": 1
-        }
-      ],
-      "relations": []
-    },
-    {
       "id": "9:5972774028415341509",
       "lastPropertyId": "3:5577102857112397783",
       "name": "Product",
@@ -425,9 +396,16 @@
   "lastSequenceId": "0:0",
   "modelVersion": 5,
   "modelVersionParserMinimum": 5,
-  "retiredEntityUids": [],
+  "retiredEntityUids": [
+    1816800361256143629
+  ],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    926218974519932123,
+    6194042356353498965,
+    3873785297998353296,
+    3995214370991669218
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

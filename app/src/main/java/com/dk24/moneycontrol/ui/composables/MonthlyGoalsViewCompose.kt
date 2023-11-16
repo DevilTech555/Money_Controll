@@ -23,10 +23,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dk24.moneycontrol.R
-import com.dk24.moneycontrol.db.objectbox.entities.MonthlyGoals
+import com.dk24.moneycontrol.db.room.model.MonthlyGoal
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.utilites.Constants
+import com.dk24.moneycontrol.utilites.Constants.GOALS_VIEW_TITLE
 import com.dk24.moneycontrol.utilites.SetStatusBarColor
 import com.dk24.moneycontrol.utilites.showToast
 import com.dk24.moneycontrol.viewmodels.MonthlyGoalsViewModel
@@ -56,7 +57,7 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState, context: Context) {
             .background(bg),
         topBar = {
             TopBarCompose(
-                title = viewModel.getTitle(),
+                title = GOALS_VIEW_TITLE,
                 drawerState = drawerState,
                 navigationType = TopBarNavigationType.MENU
             )
@@ -104,6 +105,7 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState, context: Context) {
                                         viewModel.selectedGoal = monthlyGoal
                                         isDeleteGoalDialogVisible = true
                                     }
+
                                     DBOperationType.EDIT -> {
                                         viewModel.selectedGoal = monthlyGoal
                                         isEditGoalDialogVisible = true
@@ -127,7 +129,7 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState, context: Context) {
             AddGoalDialogCompose(onDismissRequest = {
                 isAddGoalDialogVisible = false
             }, onAdd = { value ->
-                if (value.isBlank()){
+                if (value.isBlank()) {
                     context.showToast("Goal is blank..!")
                 } else {
                     viewModel.addGoal(value)
@@ -142,9 +144,8 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState, context: Context) {
                 onDismissRequest = {
                     isEditGoalDialogVisible = false
                 }, onUpdate = { value ->
-                    if (viewModel.updateGoal(value)) {
-                        isEditGoalDialogVisible = false
-                    }
+                    viewModel.updateGoal(value)
+                    isEditGoalDialogVisible = false
                 })
         }
 
@@ -157,7 +158,8 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState, context: Context) {
                     isDeleteGoalDialogVisible = false
                 },
                 onDelete = { value ->
-                    if (value is MonthlyGoals && viewModel.removeGoal(value)) {
+                    if (value is MonthlyGoal) {
+                        viewModel.removeGoal(value)
                         isDeleteGoalDialogVisible = false
                     }
                 }

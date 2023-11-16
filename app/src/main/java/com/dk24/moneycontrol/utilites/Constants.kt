@@ -8,4 +8,8 @@ object Constants {
 
     const val dialogBackgroundAlpha = 0.6f
     const val currencyType = "rs"
+
+    // view titles
+    const val POT_VIEW_TITLE = "Peggy Bank"
+    const val GOALS_VIEW_TITLE = "Goals"
 }
