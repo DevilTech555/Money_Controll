@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.db.entities
+package com.dk24.moneycontrol.db.objectbox.entities
 
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id

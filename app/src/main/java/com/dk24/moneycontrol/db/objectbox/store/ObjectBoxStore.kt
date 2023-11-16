@@ -1,10 +1,10 @@
-package com.dk24.moneycontrol.db.store
+package com.dk24.moneycontrol.db.objectbox.store
 
 import android.content.Context
-import com.dk24.moneycontrol.db.entities.MonthlyGoals
+import com.dk24.moneycontrol.db.objectbox.entities.MonthlyGoals
 import com.dk24.moneycontrol.db.entities.MyObjectBox
-import com.dk24.moneycontrol.db.entities.Pot
-import com.dk24.moneycontrol.db.entities.PotTransactions
+import com.dk24.moneycontrol.db.objectbox.entities.Pot
+import com.dk24.moneycontrol.db.objectbox.entities.PotTransactions
 import io.objectbox.Box
 import io.objectbox.BoxStore
 import io.objectbox.kotlin.flow

@@ -2,9 +2,9 @@ package com.dk24.moneycontrol.viewmodels
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.dk24.moneycontrol.db.entities.Pot
-import com.dk24.moneycontrol.db.entities.PotTransactions
-import com.dk24.moneycontrol.db.store.ObjectBoxStore
+import com.dk24.moneycontrol.db.objectbox.entities.Pot
+import com.dk24.moneycontrol.db.objectbox.entities.PotTransactions
+import com.dk24.moneycontrol.db.objectbox.store.ObjectBoxStore
 
 class PeggyBankViewModel : ViewModel() {
 

@@ -1,8 +1,8 @@
 package com.dk24.moneycontrol.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.dk24.moneycontrol.db.entities.MonthlyGoals
-import com.dk24.moneycontrol.db.store.ObjectBoxStore
+import com.dk24.moneycontrol.db.objectbox.entities.MonthlyGoals
+import com.dk24.moneycontrol.db.objectbox.store.ObjectBoxStore
 
 class MonthlyGoalsViewModel : ViewModel() {
 

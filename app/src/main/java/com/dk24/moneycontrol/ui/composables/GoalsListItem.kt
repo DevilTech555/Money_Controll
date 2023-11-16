@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.dk24.moneycontrol.db.entities.MonthlyGoals
+import com.dk24.moneycontrol.db.objectbox.entities.MonthlyGoals
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.utilites.changeAlpha
 import me.saket.swipe.SwipeAction

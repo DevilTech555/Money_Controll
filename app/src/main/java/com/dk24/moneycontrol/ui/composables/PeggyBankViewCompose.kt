@@ -17,8 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dk24.moneycontrol.R
-import com.dk24.moneycontrol.db.entities.Pot
-import com.dk24.moneycontrol.db.entities.PotTransactions
+import com.dk24.moneycontrol.db.objectbox.entities.Pot
+import com.dk24.moneycontrol.db.objectbox.entities.PotTransactions
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.utilites.SetStatusBarColor
