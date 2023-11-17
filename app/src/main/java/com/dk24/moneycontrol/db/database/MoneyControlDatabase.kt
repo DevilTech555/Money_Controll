@@ -1,12 +1,12 @@
-package com.dk24.moneycontrol.db.room.database
+package com.dk24.moneycontrol.db.database
 
 import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dk24.moneycontrol.db.room.model.MPot
-import com.dk24.moneycontrol.db.room.model.MPotTransaction
-import com.dk24.moneycontrol.db.room.model.MonthlyGoal
+import com.dk24.moneycontrol.db.model.MPot
+import com.dk24.moneycontrol.db.model.MPotTransaction
+import com.dk24.moneycontrol.db.model.MonthlyGoal
 
 @Database(
     entities = [MonthlyGoal::class, MPot::class, MPotTransaction::class],

@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.db.room.database
+package com.dk24.moneycontrol.db.database
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,8 +6,8 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
-import com.dk24.moneycontrol.db.room.model.MPot
-import com.dk24.moneycontrol.db.room.model.MPotAndMPotTransactions
+import com.dk24.moneycontrol.db.model.MPot
+import com.dk24.moneycontrol.db.model.MPotAndMPotTransactions
 import kotlinx.coroutines.flow.Flow
 
 @Dao

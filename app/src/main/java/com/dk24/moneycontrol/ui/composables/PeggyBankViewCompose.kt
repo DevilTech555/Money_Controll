@@ -22,8 +22,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dk24.moneycontrol.R
-import com.dk24.moneycontrol.db.room.model.MPot
-import com.dk24.moneycontrol.db.room.model.MPotTransaction
+import com.dk24.moneycontrol.db.model.MPot
+import com.dk24.moneycontrol.db.model.MPotTransaction
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.utilites.Constants.POT_VIEW_TITLE

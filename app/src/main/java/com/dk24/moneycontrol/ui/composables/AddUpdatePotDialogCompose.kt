@@ -41,8 +41,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.core.text.isDigitsOnly
 import com.dk24.moneycontrol.R
-import com.dk24.moneycontrol.db.room.model.MPot
-import com.dk24.moneycontrol.db.room.model.MPotTransaction
+import com.dk24.moneycontrol.db.model.MPot
+import com.dk24.moneycontrol.db.model.MPotTransaction
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha
 

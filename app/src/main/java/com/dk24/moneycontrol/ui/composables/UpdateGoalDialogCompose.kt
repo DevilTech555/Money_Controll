@@ -29,7 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.dk24.moneycontrol.R
-import com.dk24.moneycontrol.db.room.model.MonthlyGoal
+import com.dk24.moneycontrol.db.model.MonthlyGoal
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha
 

@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.db.room.model
+package com.dk24.moneycontrol.db.model
 
 import androidx.room.Embedded
 import androidx.room.Relation

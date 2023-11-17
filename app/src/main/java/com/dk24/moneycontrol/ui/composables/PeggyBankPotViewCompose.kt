@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.dk24.moneycontrol.db.room.model.MPot
+import com.dk24.moneycontrol.db.model.MPot
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha

@@ -1,7 +1,7 @@
 package com.dk24.moneycontrol
 
 import android.app.Application
-import com.dk24.moneycontrol.db.room.database.MoneyControlDatabase
+import com.dk24.moneycontrol.db.database.MoneyControlDatabase
 
 class MyApplication : Application() {
 

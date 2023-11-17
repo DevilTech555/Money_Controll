@@ -2,8 +2,8 @@ package com.dk24.moneycontrol.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dk24.moneycontrol.db.room.database.MoneyControlDatabase
-import com.dk24.moneycontrol.db.room.model.MonthlyGoal
+import com.dk24.moneycontrol.db.database.MoneyControlDatabase
+import com.dk24.moneycontrol.db.model.MonthlyGoal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

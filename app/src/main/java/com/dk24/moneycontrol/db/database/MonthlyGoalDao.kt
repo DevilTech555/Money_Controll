@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.db.room.database
+package com.dk24.moneycontrol.db.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -6,7 +6,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import com.dk24.moneycontrol.db.room.model.MonthlyGoal
+import com.dk24.moneycontrol.db.model.MonthlyGoal
 import kotlinx.coroutines.flow.Flow
 
 @Dao
