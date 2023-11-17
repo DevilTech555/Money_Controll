@@ -56,12 +56,7 @@ class SharedPreferHelper {
         }
 
         enum class Key {
-            GROOMING_START_DATE,
-            GROOMING_END_DATE,
-            DEVELOPMENT_START_DATE,
-            DEVELOPMENT_END_DATE,
-            RELEASE_START_DATE,
-            RELEASE_END_DATE
+            //Add shared pref keys here
         }
     }
 }

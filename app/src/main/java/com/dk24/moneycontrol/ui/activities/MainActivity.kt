@@ -5,18 +5,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.DrawerValue
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.dk24.moneycontrol.ui.composables.navigation.NavigationDrawerViewCompose
 import com.dk24.moneycontrol.navigation.MainViewNavigationHost
 import com.dk24.moneycontrol.navigation.MainViewNavigationRoutes
+import com.dk24.moneycontrol.ui.composables.navigation.NavigationDrawerViewCompose
 import com.dk24.moneycontrol.ui.theme.MoneyControlTheme
 
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

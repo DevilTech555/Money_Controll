@@ -1,6 +1,5 @@
 package com.dk24.moneycontrol.db.model
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
