@@ -20,9 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -33,7 +31,6 @@ import androidx.compose.ui.window.Dialog
 import com.dk24.moneycontrol.R
 import com.dk24.moneycontrol.db.model.MPot
 import com.dk24.moneycontrol.db.model.MPotTransaction
-import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha
 
@@ -45,10 +42,6 @@ fun AddUpdatePotDialogCompose(
     onDismissRequest: () -> Unit,
     onAdd: (Any?) -> Unit
 ) {
-
-    var selectedIndex by remember { mutableIntStateOf(0) }
-
-    val options = listOf("Add Money", "Update Pot")
 
     var potNameValue by rememberSaveable { mutableStateOf(mPot?.name.orEmpty()) }
     var totalAmountValue by rememberSaveable {
