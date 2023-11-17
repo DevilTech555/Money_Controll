@@ -27,8 +27,8 @@ import com.dk24.moneycontrol.db.model.MPotTransaction
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.enums.TopBarNavigationType
 import com.dk24.moneycontrol.ui.composables.customcomponents.CircleFabButton
-import com.dk24.moneycontrol.ui.composables.monthlygoal.DeleteGoalDialogCompose
 import com.dk24.moneycontrol.ui.composables.customcomponents.TopBarCompose
+import com.dk24.moneycontrol.ui.composables.monthlygoal.DeleteGoalDialogCompose
 import com.dk24.moneycontrol.utilites.Constants.POT_VIEW_TITLE
 import com.dk24.moneycontrol.utilites.SetStatusBarColor
 import com.dk24.moneycontrol.viewmodels.PeggyBankViewModel
@@ -48,6 +48,9 @@ fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
     }
     var isDeletePotDialogVisible by remember {
         mutableStateOf(false)
+    }
+    var potViewType by remember {
+        mutableStateOf(ViewType.POT)
     }
 
     val bg = MaterialTheme.colorScheme.background
@@ -78,9 +81,9 @@ fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
                 modifier = Modifier.weight(1f),
             ) {
                 items(moneyPotList) { mPot ->
-                    PeggyBankPotViewCompose(mPot = mPot, onClick = { data, type ->
+                    PeggyBankPotViewCompose(mPot = mPot, onClick = { data, type, viewType ->
                         when (type) {
-                            DBOperationType.EDIT -> {
+                            DBOperationType.EDIT, DBOperationType.ADD -> {
                                 viewModel.selectedPot = data
                                 isUpdatePotDialogVisible = true
                             }
@@ -89,14 +92,18 @@ fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
                                 viewModel.selectedPot = data
                                 isDeletePotDialogVisible = true
                             }
+                            else -> {}
                         }
+                        potViewType = viewType
                     })
                 }
             }
         }
 
         if (isAddPotDialogVisible) {
-            AddUpdatePotDialogCompose(onDismissRequest = {
+            AddUpdatePotDialogCompose(
+                viewType = ViewType.POT,
+                onDismissRequest = {
                 isAddPotDialogVisible = false
             }, onAdd = { data ->
                 if (data is MPot) {
@@ -108,6 +115,7 @@ fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
 
         if (isUpdatePotDialogVisible) {
             AddUpdatePotDialogCompose(
+                viewType = potViewType,
                 mPot = viewModel.selectedPot,
                 onDismissRequest = {
                     isUpdatePotDialogVisible = false

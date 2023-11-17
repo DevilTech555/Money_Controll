@@ -112,6 +112,8 @@ fun MonthlyGoalsViewCompose(drawerState: DrawerState, context: Context) {
                                         viewModel.selectedGoal = monthlyGoal
                                         isEditGoalDialogVisible = true
                                     }
+
+                                    else -> {}
                                 }
                             })
                         }

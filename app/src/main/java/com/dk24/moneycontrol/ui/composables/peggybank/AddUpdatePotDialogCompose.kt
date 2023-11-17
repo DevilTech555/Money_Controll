@@ -33,12 +33,14 @@ import androidx.compose.ui.window.Dialog
 import com.dk24.moneycontrol.R
 import com.dk24.moneycontrol.db.model.MPot
 import com.dk24.moneycontrol.db.model.MPotTransaction
+import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha
 
 @ExperimentalMaterial3Api
 @Composable
 fun AddUpdatePotDialogCompose(
+    viewType: ViewType,
     mPot: MPot? = null,
     onDismissRequest: () -> Unit,
     onAdd: (Any?) -> Unit
@@ -77,12 +79,8 @@ fun AddUpdatePotDialogCompose(
                     .padding(top = 16.dp)
             ) {
 
-                if (mPot == null) {
-                    selectedIndex = 1
-                }
-
-                when (selectedIndex) {
-                    0 -> {
+                when (viewType) {
+                    ViewType.POTT -> {
                         AddMoneyToPotComposeDialog(
                             mPot = mPot,
                             amount = amountValue,
@@ -91,7 +89,7 @@ fun AddUpdatePotDialogCompose(
                             })
                     }
 
-                    1 -> {
+                    ViewType.POT -> {
                         AddUpdatePotViewCompose(
                             pot = mPot,
                             name = potNameValue,
@@ -106,15 +104,6 @@ fun AddUpdatePotDialogCompose(
                     }
                 }
 
-                mPot?.let {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-
-                    }
-                }
-
                 Spacer(modifier = Modifier.weight(1f))
 
                 Row(
@@ -125,8 +114,8 @@ fun AddUpdatePotDialogCompose(
                     Spacer(modifier = Modifier.weight(1f))
                     TextButton(
                         onClick = {
-                            when (selectedIndex) {
-                                0 -> {
+                            when (viewType) {
+                                ViewType.POTT -> {
                                     if (amountValue.isBlank()) {
                                         onAdd(null)
                                         return@TextButton
@@ -142,7 +131,7 @@ fun AddUpdatePotDialogCompose(
                                     }
                                 }
 
-                                1 -> {
+                                ViewType.POT -> {
                                     mPot?.let {
                                         mPot.apply {
                                             this.name = potNameValue
