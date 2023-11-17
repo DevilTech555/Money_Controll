@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.ui.composables
+package com.dk24.moneycontrol.ui.composables.customcomponents
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.runtime.Composable

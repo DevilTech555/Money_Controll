@@ -10,7 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.dk24.moneycontrol.ui.composables.NavigationDrawerViewCompose
+import com.dk24.moneycontrol.ui.composables.navigation.NavigationDrawerViewCompose
 import com.dk24.moneycontrol.navigation.MainViewNavigationHost
 import com.dk24.moneycontrol.navigation.MainViewNavigationRoutes
 import com.dk24.moneycontrol.ui.theme.MoneyControlTheme

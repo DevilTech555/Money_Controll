@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.ui.composables
+package com.dk24.moneycontrol.ui.composables.peggybank
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -13,15 +13,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -29,17 +26,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.core.text.isDigitsOnly
 import com.dk24.moneycontrol.R
 import com.dk24.moneycontrol.db.model.MPot
 import com.dk24.moneycontrol.db.model.MPotTransaction
@@ -93,7 +83,7 @@ fun AddUpdatePotDialogCompose(
 
                 when (selectedIndex) {
                     0 -> {
-                        AddMoney(
+                        AddMoneyToPotComposeDialog(
                             mPot = mPot,
                             amount = amountValue,
                             amountChange = {
@@ -192,92 +182,4 @@ fun AddUpdatePotDialogCompose(
             }
         }
     }
-}
-
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-fun AddMoney(
-    mPot: MPot?,
-    amount: String,
-    amountChange: (String) -> Unit
-) {
-    val focusRequester = remember { FocusRequester() }
-    val keyboardController = LocalSoftwareKeyboardController.current
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus()
-    }
-
-    Text(
-        modifier = Modifier.padding(vertical = 12.dp),
-        text = stringResource(id = R.string.add_amount),
-        style = MaterialTheme.typography.titleMedium
-    )
-
-    OutlinedTextField(
-        value = amount, onValueChange = {
-            if (it.isBlank()) {
-                amountChange("")
-                return@OutlinedTextField
-            }
-            if (it.isDigitsOnly() && it.toFloat() > 0) {
-                mPot?.let { pot ->
-                    if ((it.toFloat() + pot.savedAmount) <= pot.totalAmount)
-                        amountChange(it)
-                }
-            } else amountChange("")
-        }, modifier = Modifier
-            .padding(vertical = 12.dp)
-            .focusRequester(focusRequester)
-            .onFocusChanged {
-                if (it.isFocused) {
-                    keyboardController?.show()
-                }
-            },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
-    )
-}
-
-@Composable
-fun AddUpdatePotViewCompose(
-    pot: MPot?,
-    name: String,
-    totalAmount: String,
-    nameChange: (String) -> Unit,
-    totalAmountChange: (String) -> Unit
-) {
-    Text(
-        modifier = Modifier.padding(vertical = 12.dp),
-        text = if (pot != null) stringResource(id = R.string.update_pot) else stringResource(
-            id = R.string.add_pot
-        ),
-        style = MaterialTheme.typography.titleMedium
-    )
-
-    Text(
-        text = stringResource(id = R.string.pot_name),
-        style = MaterialTheme.typography.titleMedium
-    )
-
-    OutlinedTextField(value = name, onValueChange = {
-        nameChange(it)
-    }, modifier = Modifier.padding(vertical = 12.dp))
-
-    Text(
-        text = stringResource(id = R.string.total_amount),
-        style = MaterialTheme.typography.titleMedium
-    )
-
-    OutlinedTextField(
-        value = totalAmount,
-        onValueChange = {
-            if (it.isBlank()) {
-                totalAmountChange("")
-                return@OutlinedTextField
-            }
-            if (it.isDigitsOnly() && it.toLong() > 0) totalAmountChange(it) else totalAmountChange("")
-        },
-        modifier = Modifier.padding(vertical = 12.dp),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
-    )
 }

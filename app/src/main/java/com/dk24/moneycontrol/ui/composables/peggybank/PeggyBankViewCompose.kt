@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.ui.composables
+package com.dk24.moneycontrol.ui.composables.peggybank
 
 import android.content.Context
 import androidx.compose.foundation.background
@@ -26,6 +26,9 @@ import com.dk24.moneycontrol.db.model.MPot
 import com.dk24.moneycontrol.db.model.MPotTransaction
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.enums.TopBarNavigationType
+import com.dk24.moneycontrol.ui.composables.customcomponents.CircleFabButton
+import com.dk24.moneycontrol.ui.composables.monthlygoal.DeleteGoalDialogCompose
+import com.dk24.moneycontrol.ui.composables.customcomponents.TopBarCompose
 import com.dk24.moneycontrol.utilites.Constants.POT_VIEW_TITLE
 import com.dk24.moneycontrol.utilites.SetStatusBarColor
 import com.dk24.moneycontrol.viewmodels.PeggyBankViewModel

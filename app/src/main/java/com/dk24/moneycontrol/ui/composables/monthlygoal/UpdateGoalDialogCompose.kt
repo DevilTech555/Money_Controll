@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.ui.composables
+package com.dk24.moneycontrol.ui.composables.monthlygoal
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background

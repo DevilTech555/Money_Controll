@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.dk24.moneycontrol.ui.composables.AboutViewCompose
 import com.dk24.moneycontrol.ui.composables.DashboardViewCompose
-import com.dk24.moneycontrol.ui.composables.MonthlyGoalsViewCompose
-import com.dk24.moneycontrol.ui.composables.PeggyBankViewCompose
+import com.dk24.moneycontrol.ui.composables.monthlygoal.MonthlyGoalsViewCompose
+import com.dk24.moneycontrol.ui.composables.peggybank.PeggyBankViewCompose
 
 @Composable
 fun MainViewNavigationHost(

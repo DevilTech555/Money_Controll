@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.ui.composables
+package com.dk24.moneycontrol.ui.composables.peggybank
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,6 +25,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dk24.moneycontrol.db.model.MPot
 import com.dk24.moneycontrol.enums.DBOperationType
+import com.dk24.moneycontrol.ui.composables.customcomponents.CircularProgressBarCompose
 import com.dk24.moneycontrol.utilites.Constants
 import com.dk24.moneycontrol.utilites.changeAlpha
 

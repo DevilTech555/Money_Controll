@@ -1,4 +1,4 @@
-package com.dk24.moneycontrol.ui.composables
+package com.dk24.moneycontrol.ui.composables.monthlygoal
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.dk24.moneycontrol.db.model.MonthlyGoal
 import com.dk24.moneycontrol.enums.DBOperationType
+import com.dk24.moneycontrol.ui.composables.customcomponents.CircularCheckbox
 import com.dk24.moneycontrol.utilites.changeAlpha
 import me.saket.swipe.SwipeAction
 import me.saket.swipe.SwipeableActionsBox
