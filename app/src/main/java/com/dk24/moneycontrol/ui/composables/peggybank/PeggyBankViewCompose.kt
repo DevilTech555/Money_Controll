@@ -21,11 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import com.dk24.moneycontrol.R
 import com.dk24.moneycontrol.db.model.MPot
 import com.dk24.moneycontrol.db.model.MPotTransaction
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.enums.TopBarNavigationType
+import com.dk24.moneycontrol.navigation.MainViewNavigationRoutes
 import com.dk24.moneycontrol.ui.composables.customcomponents.CircleFabButton
 import com.dk24.moneycontrol.ui.composables.customcomponents.TopBarCompose
 import com.dk24.moneycontrol.ui.composables.monthlygoal.DeleteGoalDialogCompose
@@ -35,7 +37,7 @@ import com.dk24.moneycontrol.viewmodels.PeggyBankViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
+fun PeggyBankViewCompose(drawerState: DrawerState) {
 
     val viewModel = viewModel<PeggyBankViewModel>()
     val moneyPotList by viewModel.moneyPotList.collectAsState(initial = emptyList())
@@ -92,6 +94,7 @@ fun PeggyBankViewCompose(drawerState: DrawerState, context: Context) {
                                 viewModel.selectedPot = data
                                 isDeletePotDialogVisible = true
                             }
+                            else -> {}
                         }
                         potViewType = viewType
                     })

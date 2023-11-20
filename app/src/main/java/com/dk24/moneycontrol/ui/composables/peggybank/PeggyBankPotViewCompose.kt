@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.dk24.moneycontrol.db.model.MPot
 import com.dk24.moneycontrol.enums.DBOperationType
 import com.dk24.moneycontrol.ui.composables.customcomponents.CircularProgressBarCompose
@@ -62,7 +63,8 @@ fun PeggyBankPotViewCompose(
 
     val dropdownItems = listOf(
         DropDownItem("Modify", DBOperationType.EDIT, ViewType.POT),
-        DropDownItem("delete", DBOperationType.DELETE, ViewType.POT)
+        DropDownItem("delete", DBOperationType.DELETE, ViewType.POT),
+        DropDownItem("transactions", DBOperationType.READ, ViewType.POT)
     )
 
     Surface(
@@ -156,19 +158,7 @@ fun PeggyBankPotViewCompose(
                             Text(text = it.text)
                         },
                         onClick = {
-                            when (it.dbOperationType) {
-                                DBOperationType.EDIT -> {
-                                    onClick(mPot, it.dbOperationType, it.viewType)
-                                }
-
-                                DBOperationType.DELETE -> {
-                                    onClick(mPot, it.dbOperationType, it.viewType)
-                                }
-
-                                else -> {
-                                    // do nothing
-                                }
-                            }
+                            onClick(mPot, it.dbOperationType, it.viewType)
                             isContextMenuVisible = false
                         })
                 }

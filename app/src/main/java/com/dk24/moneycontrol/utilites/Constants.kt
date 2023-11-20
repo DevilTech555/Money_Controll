@@ -12,4 +12,5 @@ object Constants {
     // view titles
     const val POT_VIEW_TITLE = "Peggy Bank"
     const val GOALS_VIEW_TITLE = "Goals"
+    const val TRANSACTIONS = "Transactions"
 }

@@ -10,6 +10,7 @@ import com.dk24.moneycontrol.ui.composables.AboutViewCompose
 import com.dk24.moneycontrol.ui.composables.DashboardViewCompose
 import com.dk24.moneycontrol.ui.composables.monthlygoal.MonthlyGoalsViewCompose
 import com.dk24.moneycontrol.ui.composables.peggybank.PeggyBankViewCompose
+import com.dk24.moneycontrol.ui.composables.peggybank.PotTransactionHistoryCompose
 
 @Composable
 fun MainViewNavigationHost(
@@ -29,7 +30,7 @@ fun MainViewNavigationHost(
             MonthlyGoalsViewCompose(drawerState = drawerState, context)
         }
         composable(MainViewNavigationRoutes.POT_SCREEN) {
-            PeggyBankViewCompose(drawerState = drawerState, context)
+            PeggyBankViewCompose(drawerState = drawerState)
         }
         composable(MainViewNavigationRoutes.ABOUT_SCREEN) {
             AboutViewCompose(drawerState = drawerState, context)

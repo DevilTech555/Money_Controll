@@ -5,4 +5,5 @@ object MainViewNavigationRoutes {
     const val MONTHLY_GOALS_SCREEN = "MonthlyGoalsScreen"
     const val POT_SCREEN = "PotScreen"
     const val ABOUT_SCREEN = "AboutScreen"
+    const val POT_TRANSACTION_SCREEN = "PotTransactionScreen"
 }

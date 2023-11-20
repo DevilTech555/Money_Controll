@@ -1,5 +1,5 @@
 package com.dk24.moneycontrol.enums
 
 enum class DBOperationType {
-    EDIT,DELETE,ADD
+    EDIT,DELETE,ADD,READ
 }
